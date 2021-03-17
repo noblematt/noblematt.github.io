@@ -1,0 +1,43 @@
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+}
+.answer-slot {
+    background-color: #ccc;
+}
+.filled-answer {
+    background-color: #cfc;
+}
+.wrong-answer {
+    background-color: #fcc;
+}
+#answer1 {
+    width: 55%;
+}
+#answer2 {
+    width: 60%;
+}
+#answer3 {
+    width: 65%;
+}
+#answer4 {
+    width: 70%;
+}
+#answer5 {
+    width: 75%;
+}
+#answer6 {
+    width: 80%;
+}
+#answer7 {
+    width: 85%;
+}
+#answer8 {
+    width: 90%;
+}
+#answer9 {
+    width: 95%;
+}
+#answer10 {
+    width: 100%;
+}

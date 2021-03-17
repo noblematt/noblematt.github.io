@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8"/>
+    <title>Tenable</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+
+    <script src="lzma.js"></script>
+    <script>
+        var lzma = new LZMA("lzma_worker.js");
+
+        const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
+
+        const run = async (data, error) => {
+            if (error) {
+                alert("Failed to decompress data: "+error);
+                return;
+            }
+
+            document.getElementById("data").value = data;
+            data = JSON.parse(data);
+            document.getElementById("question").textContent = data["question"];
+            var scores = [];
+            for (i=0; i<data["players"].length; i++) {
+                scores.push(0);
+            }
+
+            var incorrect = 0;
+            for (i=0; i<data["attempts"].length; i++) {
+
+                if (i == data["attempts"].length - 1) {
+                    var j;
+                    for (j=10; j>0; j--) {
+                        if (data["answers"][j - 1] == data["attempts"][i]) {
+                            document.getElementById("sound-correct").play();
+                            j = 0;
+                        } else {
+                            document.getElementById("answer" + j).classList.add("wrong-answer");
+                            if (j == 1) {
+                                document.getElementById("sound-wrong").play();
+                            } else {
+                                document.getElementById("sound-maybe").play();
+                            }
+                            await sleep(700);
+                            document.getElementById("answer" + j).classList.remove("wrong-answer");
+                        }
+                    }
+                }
+
+                answer_index = data["answers"].indexOf(data["attempts"][i]);
+                if (answer_index == -1) {
+                    incorrect++;
+                } else {
+                    var element = document.getElementById("answer" + (answer_index + 1));
+                    element.textContent = data["attempts"][i];
+                    element.classList.add("filled-answer");
+                    scores[i % data["players"].length] += 1 + incorrect;
+                    incorrect = 0;
+                }
+            }
+
+            var label = data["players"][i % data["players"].length] + "'s guess for " + (incorrect + 1) + " point";
+            if (incorrect) {
+                label += "s";
+            }
+            document.getElementById("answer-label").textContent = label;
+
+            var scores_table = document.getElementById("scores");
+            for (i=0; i<data["players"].length; i++) {
+                var row = scores_table.insertRow(i);
+                row.insertCell(0).textContent = data["players"][i];
+                row.insertCell(1).textContent = scores[i];
+            }
+
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+            document.getElementById("answer").focus();
+
+            var base64 = location.hash.substr(1);
+            if (base64.length == 0) {
+                    window.location.assign("./index.html");
+            }
+
+            if (!fetch) {
+                alert("Your browser does not support this page.  Sorry! :(");
+                return;
+            }
+
+            fetch("data:application/octet-stream;base64,"+base64).then(r => r.blob()).then(function(blob){
+                var reader = new FileReader();
+                reader.onload = function(){
+                    var compressed_data = Array.from(new Uint8Array(reader.result));
+                    lzma.decompress(compressed_data, run)
+                };
+                reader.readAsArrayBuffer(blob);
+            });
+
+            document.getElementById("go").onclick = function() {
+                data = JSON.parse(document.getElementById("data").value);
+                data["attempts"].push(document.getElementById("answer").value);
+
+                lzma.compress(JSON.stringify(data), 1, function(compressed, error) {
+                    if (error) {
+                        alert("Failed to compress data: "+error);
+                        return;
+                    }
+            
+                    var reader = new FileReader();
+                    reader.onload = function(){
+                        var base64 = reader.result.substr(reader.result.indexOf(",")+1);
+                        var url = '#' + base64;
+                        window.location.assign(url);
+                        window.location.reload();
+                    };
+                    reader.readAsDataURL(new Blob([new Uint8Array(compressed)]));
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+    <div class="row"><div class="col-md-12">
+        <h1 class="text-center" id="question"></h1>
+        <h1 class="answer-slot text-center" id="answer1">1</h1>
+        <h1 class="answer-slot text-center" id="answer2">2</h1>
+        <h1 class="answer-slot text-center" id="answer3">3</h1>
+        <h1 class="answer-slot text-center" id="answer4">4</h1>
+        <h1 class="answer-slot text-center" id="answer5">5</h1>
+        <h1 class="answer-slot text-center" id="answer6">6</h1>
+        <h1 class="answer-slot text-center" id="answer7">7</h1>
+        <h1 class="answer-slot text-center" id="answer8">8</h1>
+        <h1 class="answer-slot text-center" id="answer9">9</h1>
+        <h1 class="answer-slot text-center" id="answer10">10</h1>
+    </div></div>
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table">
+                <thead><tr><th colspan=2>Scores</th></tr></thead>
+                <tbody id="scores"></tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <br><br>
+            <form>
+                <div class="form-group">
+                    <label for="answer" id="answer-label"></label>
+                    <input type="text" class="form-control" id="answer">
+                    <input type="hidden" id="data">
+                </div>
+                <input type="submit" class="btn btn-default" id="go" value="Go">
+            </form>
+        </div>
+    </div>
+    <audio src="./maybe.mp3" id="sound-maybe"></audio>
+    <audio src="./wrong.mp3" id="sound-wrong"></audio>
+    <audio src="./correct.mp3" id="sound-correct"></audio>
+</body>
+</html>
