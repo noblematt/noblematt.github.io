@@ -111,7 +111,7 @@
                     reader.onload = function(){
                         var base64 = reader.result.substr(reader.result.indexOf(",")+1);
                         var url = '#' + base64;
-                        window.location.assign(url);
+                        window.location.href = url;
                         window.location.reload();
                     };
                     reader.readAsDataURL(new Blob([new Uint8Array(compressed)]));
@@ -144,7 +144,7 @@
         </div>
         <div class="col-md-6">
             <br><br>
-            <form>
+            <form autocomplete="off">
                 <div class="form-group">
                     <label for="answer" id="answer-label"></label>
                     <input type="text" class="form-control" id="answer">
