@@ -31,7 +31,7 @@
                     reader.onload = function(){
                         var base64 = reader.result.substr(reader.result.indexOf(",")+1);
                         console.log("base64: " + base64);
-                        var url = './question.html#' + base64;
+                        var url = './question.html?#' + base64;
                         window.location.assign(url);
                     };
                     reader.readAsDataURL(new Blob([new Uint8Array(compressed)]));

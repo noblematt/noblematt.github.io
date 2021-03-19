@@ -32,7 +32,7 @@
                 if (i == data["attempts"].length - 1) {
                     var j;
                     for (j=10; j>0; j--) {
-                        if (data["answers"][j - 1].trim().toLowerCase() == data["attempts"][i].trim().toLowerCase()) {
+                        if (data["answers"][j - 1].trim().toLowerCase() == data["attempts"][i]) {
                             document.getElementById("sound-correct").play();
                             j = 0;
                         } else {
@@ -50,7 +50,7 @@
 
                 var answer_index = -1;
                 for (j=0; j<10; j++) {
-                    if (data["answers"][j].trim().toLowerCase() == data["attempts"][i].trim().toLowerCase()) {
+                    if (data["answers"][j].trim().toLowerCase() == data["attempts"][i]) {
                         answer_index = j;
                         break;
                     }
@@ -104,8 +104,19 @@
             });
 
             document.getElementById("go").onclick = function() {
-                data = JSON.parse(document.getElementById("data").value);
-                data["attempts"].push(document.getElementById("answer").value);
+                var data = JSON.parse(document.getElementById("data").value);
+                var answer = document.getElementById("answer").value.trim().toLowerCase();
+                if (!answer) {
+                    document.getElementById("answer").value = "";
+                    alert("Please provide an answer");
+                    return;
+                }
+                if (data["attempts"].includes(answer)) {
+                    document.getElementById("answer").value = "";
+                    alert("Answer already given");
+                    return;
+                }
+                data["attempts"].push(answer);
 
                 lzma.compress(JSON.stringify(data), 1, function(compressed, error) {
                     if (error) {
@@ -150,7 +161,7 @@
         </div>
         <div class="col-md-6">
             <br><br>
-            <form autocomplete="off">
+            <form autocomplete="off" onsubmit="return false">
                 <div class="form-group">
                     <label for="answer" id="answer-label"></label>
                     <input type="text" class="form-control" id="answer">
