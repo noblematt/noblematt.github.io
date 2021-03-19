@@ -32,7 +32,7 @@
                 if (i == data["attempts"].length - 1) {
                     var j;
                     for (j=10; j>0; j--) {
-                        if (data["answers"][j - 1] == data["attempts"][i]) {
+                        if (data["answers"][j - 1].trim().toLowerCase() == data["attempts"][i].trim().toLowerCase()) {
                             document.getElementById("sound-correct").play();
                             j = 0;
                         } else {
@@ -48,12 +48,18 @@
                     }
                 }
 
-                answer_index = data["answers"].indexOf(data["attempts"][i]);
+                var answer_index = -1;
+                for (j=0; j<10; j++) {
+                    if (data["answers"][j].trim().toLowerCase() == data["attempts"][i].trim().toLowerCase()) {
+                        answer_index = j;
+                        break;
+                    }
+                }
                 if (answer_index == -1) {
                     incorrect++;
                 } else {
                     var element = document.getElementById("answer" + (answer_index + 1));
-                    element.textContent = data["attempts"][i];
+                    element.textContent = data["answers"][answer_index];
                     element.classList.add("filled-answer");
                     scores[i % data["players"].length] += 1 + incorrect;
                     incorrect = 0;
