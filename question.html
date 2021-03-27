@@ -10,6 +10,27 @@
     <script>
         var lzma = new LZMA("lzma_worker.js");
 
+        function tower_complete() {
+            var i;
+            for (i=0; i<10; i++) {
+                if (document.getElementById("answer" + (i + 1)).textContent == (i + 1)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function answer_value(incorrect, index, n_players) {
+            var i;
+            var value = 1;
+            for (i=0; i<incorrect.length; i++) {
+                if (incorrect[i] > index - n_players) {
+                    value += 1;
+                }
+            }
+            return value;
+        }
+
         const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay))
 
         const run = async (data, error) => {
@@ -26,7 +47,7 @@
                 scores.push(0);
             }
 
-            var incorrect = 0;
+            var incorrect = [];
             for (i=0; i<data["attempts"].length; i++) {
 
                 if (i == data["attempts"].length - 1) {
@@ -56,21 +77,30 @@
                     }
                 }
                 if (answer_index == -1) {
-                    incorrect++;
+                    incorrect.push(i);
                 } else {
                     var element = document.getElementById("answer" + (answer_index + 1));
                     element.textContent = data["answers"][answer_index];
                     element.classList.add("filled-answer");
-                    scores[i % data["players"].length] += 1 + incorrect;
-                    incorrect = 0;
+                    scores[i % data["players"].length] += answer_value(incorrect, i, data["players"].length);
                 }
             }
 
-            var label = data["players"][i % data["players"].length] + "'s guess for " + (incorrect + 1) + " point";
-            if (incorrect) {
-                label += "s";
+            if (answer_value(incorrect, i, data["players"].length + 1) > data["players"].length) {
+                document.getElementById("answer-label").textContent = "Round over due to too many incorrect answers";
+                document.getElementById("answer").disabled = true;
+            } else if (tower_complete()){
+                document.getElementById("answer-label").textContent = "Tower complete - well done everyone!";
+                document.getElementById("answer").disabled = true;
+                document.getElementById("go").disabled = true;
+            } else {
+                var value = answer_value(incorrect, i, data["players"].length);
+                var label = data["players"][i % data["players"].length] + "'s guess for " + value + " point";
+                if (value > 1) {
+                    label += "s";
+                }
+                document.getElementById("answer-label").textContent = label;
             }
-            document.getElementById("answer-label").textContent = label;
 
             var scores_table = document.getElementById("scores");
             for (i=0; i<data["players"].length; i++) {
@@ -105,6 +135,17 @@
 
             document.getElementById("go").onclick = function() {
                 var data = JSON.parse(document.getElementById("data").value);
+                if (document.getElementById("answer-label").textContent == "Round over due to too many incorrect answers") {
+                    var i;
+                    for (i=10; i>0; i--) {
+                        if (document.getElementById("answer" + i).textContent == i) {
+                            document.getElementById("answer" + i).textContent = data["answers"][i - 1];
+                            return;
+                        }
+                    }
+                    return;
+                }
+
                 var answer = document.getElementById("answer").value.trim().toLowerCase();
                 if (!answer) {
                     document.getElementById("answer").value = "";
