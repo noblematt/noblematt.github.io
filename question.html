@@ -10,9 +10,9 @@
     <script>
         var lzma = new LZMA("lzma_worker.js");
 
-        function tower_complete() {
+        function tower_complete(n) {
             var i;
-            for (i=0; i<10; i++) {
+            for (i=0; i<n; i++) {
                 if (document.getElementById("answer" + (i + 1)).textContent == (i + 1)) {
                     return false;
                 }
@@ -51,26 +51,27 @@
             for (i=0; i<data["attempts"].length; i++) {
 
                 if (i == data["attempts"].length - 1) {
-                    var j;
-                    for (j=10; j>0; j--) {
-                        if (data["answers"][j - 1].trim().toLowerCase() == data["attempts"][i]) {
+                    for (var j=9; j>=0; j--) {
+                        if (data["answers"][j].trim().toLowerCase() == data["attempts"][i]) {
                             document.getElementById("sound-correct").play();
                             j = 0;
                         } else {
-                            document.getElementById("answer" + j).classList.add("wrong-answer");
-                            if (j == 1) {
+                            var highlight_element = document.getElementById("answer" + (j + 1));
+                            highlight_element.classList.add("wrong-answer");
+                            if (tower_complete(j)) {
                                 document.getElementById("sound-wrong").play();
+                                j = 0
                             } else {
                                 document.getElementById("sound-maybe").play();
                             }
                             await sleep(700);
-                            document.getElementById("answer" + j).classList.remove("wrong-answer");
+                            highlight_element.classList.remove("wrong-answer");
                         }
                     }
                 }
 
                 var answer_index = -1;
-                for (j=0; j<10; j++) {
+                for (var j=0; j<10; j++) {
                     if (data["answers"][j].trim().toLowerCase() == data["attempts"][i]) {
                         answer_index = j;
                         break;
@@ -89,7 +90,7 @@
             if (answer_value(incorrect, i, data["players"].length + 1) > data["players"].length) {
                 document.getElementById("answer-label").textContent = "Round over due to too many incorrect answers";
                 document.getElementById("answer").disabled = true;
-            } else if (tower_complete()){
+            } else if (tower_complete(10)){
                 document.getElementById("answer-label").textContent = "Tower complete - well done everyone!";
                 document.getElementById("answer").disabled = true;
                 document.getElementById("go").disabled = true;
