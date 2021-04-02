@@ -1,0 +1,37 @@
+.SNP { color: #cc0; }
+.Green { color: #0c0; }
+.Conservative { color: #00c; }
+.Labour { color: #c00; }
+.LibDem { color: #f60; }
+
+.region p, .region h3 {
+    text-align: center;
+}
+
+.region {
+    background-color: #eee;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    border: 1px solid #888;
+}
+
+#main {
+    margin-top: 150px;
+}
+
+#sliders {
+    padding-top: 10px;
+}
+
+#sliders label {
+    white-space: nowrap;
+}
+
+#national-totals td {
+    padding-left: 10px;
+}
+
+body { padding-bottom: 30px; }
+tbody { white-space: nowrap; }
+th { text-align: center; }
