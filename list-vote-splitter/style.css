@@ -32,6 +32,10 @@
     padding-left: 10px;
 }
 
+#majority td {
+    font-weight: bold;
+}
+
 body { padding-bottom: 30px; }
 tbody { white-space: nowrap; }
 th { text-align: center; }

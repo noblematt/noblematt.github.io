@@ -8,34 +8,30 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top" id="sliders"><div class="container">
-        <div class="row">
-            <div class="col-sm-5">
-                <form>
-                    <div class="form-group">
-                        <label for="snp-constituency-delta" id="snp-constituency-delta-label"></label>
-                        <input type="range" id="snp-constituency-delta" name="snp-constituency-delta" min="-1" max="1" step="any" value=0 oninput="update()">
-                    </div>
-                    <div class="form-group">
-                        <label for="list-split" id="list-split-label"></label>
-                        <input type="range" id="list-split" name="list-split" min="0" max="1" step="any" value=0 oninput="update()">
-                    </div>
-                </form>
-            </div>
-            <div class="col-sm-2">
-                <table id="national-totals">
-                    <tr><td></td><td></td><td></td></tr>
-                    <tr><td></td><td></td><td></td></tr>
-                    <tr><td></td><td></td><td></td></tr>
-                    <tr><td></td><td></td><td></td></tr>
-                    <tr><td></td><td></td><td></td></tr>
-                </table>
-            </div>
-            <div class="col-sm-5">
-                <h2 id="majority"></h2>
-            </div>
+    <div class="navbar navbar-default navbar-fixed-top" id="sliders"><div class="container"><div class="row">
+        <div class="col-sm-5">
+            <form>
+                <div class="form-group">
+                    <label for="snp-constituency-delta" id="snp-constituency-delta-label"></label>
+                    <input type="range" id="snp-constituency-delta" name="snp-constituency-delta" min="-1" max="1" step="any" value=0 oninput="update()">
+                </div>
+                <div class="form-group">
+                    <label for="list-split" id="list-split-label"></label>
+                    <input type="range" id="list-split" name="list-split" min="0" max="1" step="any" value=0 oninput="update()">
+                </div>
+            </form>
         </div>
-    </div></div>
+        <div class="col-sm-4">
+            <table id="national-totals">
+                <tr><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td></tr>
+                <tr><td></td><td></td><td></td></tr>
+                <tr id="majority"><td colspan=2></td><td></td></tr>
+            </table>
+        </div>
+    </div> </div></div>
     <div class="container" id="main">
     </div>
 </body>

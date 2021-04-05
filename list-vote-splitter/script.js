@@ -214,7 +214,9 @@ function update() {
         majority = "Unionist";
         majority_size = 129 - 2 * (seat_totals.SNP + seat_totals.Green);
     }
-    document.getElementById("majority").textContent = majority + " majority: " + majority_size;
+    var majority_row = document.getElementById("majority");
+    majority_row.children[0].textContent = majority + " majority";
+    majority_row.children[1].textContent = majority_size;
 
     seat_totals = sorted(seat_totals);
     var national_totals = document.getElementById("national-totals").children[0];
