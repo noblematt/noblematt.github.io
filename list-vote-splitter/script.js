@@ -423,10 +423,7 @@ REGION_HTML += '</div>';
 REGION_HTML += '<p id="REGION_NAME-total-seats"></p>';
 
 function set_up() {
-    var main = document.getElementById("main");
-    var row = document.createElement("div");
-    row.classList = "row";
-    main.appendChild(row);
+    var row = document.getElementById("region-results");
     for (var i in REGIONS) {
         var column = document.createElement("div");
         column.classList = "col-md-4 region";
