@@ -11,7 +11,7 @@
     <div class="navbar navbar-default navbar-fixed-top" id="sliders"><div class="container"><div class="row">
         <div class="col-sm-5">
             <form>
-                <div class="form-group">
+                <div class="form-group hidden" id="constituency-slider">
                     <label for="snp-constituency-delta" id="snp-constituency-delta-label"></label>
                     <input type="range" id="snp-constituency-delta" name="snp-constituency-delta" min="-1" max="1" step="any" value=0 oninput="update()">
                 </div>
@@ -61,6 +61,7 @@
                     it's important to understand how seats are allocated under
                     Holyrood's Additional Member System.
                 </p>
+
                 <h2>How do the list votes work?</h2>
                 <p>
                     Scotland is divided into eight electoral regions, with each
@@ -117,6 +118,117 @@
                     and become the second-largest party in Holyrood, at a cost
                     of just four SNP seats.
                 </p>
+
+                <h2>But what if the SNP underperform in constituencies?</h2>
+                <p>
+                    One of the arguments for <em>#BothVotesSNP</em> is that the
+                    SNP might not perform as well as expected in the
+                    constituency ballot. If this happens, their list votes will
+                    act as an insurance policy and they can pick up list seats
+                    to replace the lost constituency seats.
+                </p>
+                <p>
+                    Recent polling suggests that this is highly unlikely to
+                    happen, and in fact suggests the SNP might even pick up so
+                    many constituencies in the South Scotland region that they
+                    will lose all three of their list seats there, leaving them
+                    with just one list seat in the whole country.
+                </p>
+                <p>
+                    Polls are not a guarantee of support at the ballot box
+                    though, so they do not invalidate the argument. It is true
+                    that list votes for the SNP can act as an insurance policy
+                    in the event that they lose constituency seats. However, if
+                    that doesn't happen then those list votes for the SNP will
+                    indeed end up gaining no seats in most regions.
+                </p>
+                <p>
+                    By contrast, the Greens are likely to be competitive in the
+                    list vote in every region, meaning a Green vote will have
+                    value in every region regardless of the outcome of the
+                    constituency ballot.
+                </p>
+                <div id="constituency-slider-button">
+                    <p><em>
+                        To see how the constituency ballot impacts the results, click
+                        on the button below to enable a slider to vary the SNP's
+                        constituency vote share:
+                    </em></p>
+                    <button class="btn btn-default" onclick="enable_constituency_slider()">
+                        Enable constituency vote slider
+                    </button>
+                </div>
+
+                <h2>What about the SNP's majority in 2011?</h2>
+                <p>
+                    If it's so hard to gain list seats when doing well in the
+                    constituency ballot, then how did the SNP manage to get a
+                    majority in 2011? They won only 53 constituencies in 2011
+                    but gained a majority due to 16 list seats. So how did they
+                    lose that majority in 2016 when they increased their
+                    constituency tally to 59?
+                </p>
+                <p>
+                    Some people argue that the SNP lost their majority in 2016
+                    because their list vote dropped from 44.0% to 41.7%, but
+                    that does not adequately explain the deficit. If you adjust
+                    the slider to give the SNP 44.0% of the list vote in 2016,
+                    they regain their majority, but only just. They still drop
+                    from 69 seats to 65, and this adjustment to give the SNP two
+                    seats costs the Greens four, costing the independence
+                    movement two seats overall.
+                </p>
+                <p>
+                    In fact, the two pro-independence parties picked up roughly
+                    the same combined list vote share in 2016 as in 2011 (losing
+                    0.1% overall), but lost two seats. This is not because of
+                    votes going from SNP to Green. While the SNP lost 2.3% and
+                    the Greens gained 2.2%, if you try adjusting the slider you
+                    will see that there is no way to make the two parties'
+                    tallies add up to more than 69 - unless, that is, you move
+                    even more votes from SNP to Green.
+                </p>
+                <p>
+                    In fact, the majority for the SNP in 2011 was down to
+                    nothing more than a fluke of arithmetic. In Holyrood's
+                    quasi-proportional voting system it really shouldn't be
+                    possible to get a result like 2011, where a single party
+                    picks up 53.5% of the seats with 44.0% of the list vote,
+                    unless they pull off a nearly clean sweep of constituencies.
+                </p>
+                <p>
+                    The reason why it happened in 2011 is simply because the
+                    other parties "wasted" a lot of votes. Some of these votes
+                    were "wasted" by smaller parties who did not pick up enough
+                    votes to get any seats, but most were due to the three
+                    establishment unionist parties picking up nearly enough
+                    votes to get one more seat and falling just short. This
+                    happened to Labour and/or the Tories in every region where
+                    the SNP won a majority of seats. There is no way to predict
+                    this or to exploit or mitigate it through tactical voting,
+                    it's just pure dumb luck.
+                </p>
+
+                <h2>What about the Alba Party?</h2>
+                <p>
+                    The numbers on this page are based off of the results from
+                    the 2016 election. As they did not exist at that point in
+                    time, the Alba Party do not feature. This page is only
+                    intended to illustrate some of the arguments around tactical
+                    list voting in principle, with the example of the SNP/Green
+                    vote breakdown for 2016 as an example.
+                </p>
+                <p>
+                    The arguments for SNP supporters to lend their list vote to
+                    the Greens to maximise the number of pro-independence MSPs,
+                    also apply to the Alba Party - but only if Alba perform
+                    well enough to be competitive (i.e. well enough to get
+                    close to the threshhold for winning one seat in your
+                    region). As more polls become available nearer the
+                    election, we might get a better idea of whether that will
+                    be the case.
+                </p>
+
                 <h2>Isn't all this just "gaming the system"?</h2>
                 <p>
                     If every SNP supporter was to vote Green and thereby secure

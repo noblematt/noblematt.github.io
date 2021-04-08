@@ -314,6 +314,11 @@ function update_region(region, snp_constituency_delta, list_split) {
     return region_seats;
 }
 
+function enable_constituency_slider() {
+    document.getElementById("constituency-slider").classList.remove("hidden");
+    document.getElementById("constituency-slider-button").classList.add("hidden");
+}
+
 function add_th(number) {
     if (number == 1) {
         return "1st";
@@ -426,7 +431,7 @@ function set_up() {
     var row = document.getElementById("region-results");
     for (var i in REGIONS) {
         var column = document.createElement("div");
-        column.classList = "col-md-4 region";
+        column.classList = "col-md-5 region";
         column.id = REGIONS[i].name;
         row.appendChild(column);
         column.innerHTML = REGION_HTML.replace(/REGION_NAME/g, REGIONS[i].name);
