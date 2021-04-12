@@ -8,30 +8,6 @@
     <script src="script.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top" id="sliders"><div class="container"><div class="row">
-        <div class="col-sm-5">
-            <form>
-                <div class="form-group hidden" id="constituency-slider">
-                    <label for="snp-constituency-delta" id="snp-constituency-delta-label"></label>
-                    <input type="range" id="snp-constituency-delta" name="snp-constituency-delta" min="-1" max="1" step="any" value=0 oninput="update()">
-                </div>
-                <div class="form-group">
-                    <label for="list-split" id="list-split-label"></label>
-                    <input type="range" id="list-split" name="list-split" min="0" max="1" step="any" value=0 oninput="update()">
-                </div>
-            </form>
-        </div>
-        <div class="col-sm-4">
-            <table id="national-totals">
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr><td></td><td></td><td></td></tr>
-                <tr id="majority"><td colspan=2></td><td></td></tr>
-            </table>
-        </div>
-    </div> </div></div>
     <div class="container" id="main">
         <div class="row">
             <div class="col-sm-8">
@@ -88,10 +64,166 @@
                 </p>
                 <p>
                     Below you can see how the list seats were allocated in each
-                    region in 2016. By adjusting the slider at the top, you can
-                    see how this would have changed with a different split of
+                    region in 2016. By adjusting the slider, you can see how
+                    this would have changed with a different split of
                     pro-independence votes between SNP and Green.
                 </p>
+                <form id="sliders">
+                    <div class="form-group hidden" id="constituency-slider">
+                        <label for="snp-constituency-delta" id="snp-constituency-delta-label"></label>
+                        <input type="range" id="snp-constituency-delta" name="snp-constituency-delta" min="-1" max="1" step="any" value=0 oninput="update()">
+                    </div>
+                    <div class="form-group">
+                        <label for="list-split" id="list-split-label"></label>
+                        <input type="range" id="list-split" name="list-split" min="0" max="1" step="any" value=0 oninput="update()">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-5">
+                <svg width="360" height="185"><g id="seat-chart">
+                    <circle cx="13.47" cy="173.34" r="6.67"/>
+                    <circle cx="30.15" cy="173.34" r="6.67"/>
+                    <circle cx="46.83" cy="173.34" r="6.67"/>
+                    <circle cx="63.52" cy="173.34" r="6.67"/>
+                    <circle cx="80.22" cy="173.34" r="6.67"/>
+                    <circle cx="96.93" cy="173.35" r="6.67"/>
+                    <circle cx="15.19" cy="155.20" r="6.67"/>
+                    <circle cx="32.08" cy="155.13" r="6.67"/>
+                    <circle cx="49.02" cy="155.05" r="6.67"/>
+                    <circle cx="66.06" cy="154.94" r="6.67"/>
+                    <circle cx="83.22" cy="154.81" r="6.67"/>
+                    <circle cx="18.88" cy="137.37" r="6.67"/>
+                    <circle cx="36.21" cy="137.30" r="6.67"/>
+                    <circle cx="100.62" cy="154.64" r="6.67"/>
+                    <circle cx="53.71" cy="137.24" r="6.67"/>
+                    <circle cx="24.49" cy="120.04" r="6.67"/>
+                    <circle cx="71.47" cy="137.18" r="6.67"/>
+                    <circle cx="42.48" cy="120.10" r="6.67"/>
+                    <circle cx="89.64" cy="137.17" r="6.67"/>
+                    <circle cx="60.81" cy="120.24" r="6.67"/>
+                    <circle cx="31.97" cy="103.43" r="6.67"/>
+                    <circle cx="50.80" cy="103.80" r="6.67"/>
+                    <circle cx="79.64" cy="120.51" r="6.67"/>
+                    <circle cx="108.47" cy="137.25" r="6.67"/>
+                    <circle cx="41.21" cy="87.73" r="6.67"/>
+                    <circle cx="70.18" cy="104.38" r="6.67"/>
+                    <circle cx="99.24" cy="121.03" r="6.67"/>
+                    <circle cx="61.04" cy="88.63" r="6.67"/>
+                    <circle cx="90.35" cy="105.34" r="6.67"/>
+                    <circle cx="52.10" cy="73.13" r="6.67"/>
+                    <circle cx="81.65" cy="89.97" r="6.67"/>
+                    <circle cx="120.06" cy="122.11" r="6.67"/>
+                    <circle cx="73.06" cy="74.82" r="6.67"/>
+                    <circle cx="64.53" cy="59.82" r="6.67"/>
+                    <circle cx="111.68" cy="106.97" r="6.67"/>
+                    <circle cx="103.33" cy="92.06" r="6.67"/>
+                    <circle cx="95.00" cy="77.28" r="6.67"/>
+                    <circle cx="86.66" cy="62.58" r="6.67"/>
+                    <circle cx="78.33" cy="47.93" r="6.67"/>
+                    <circle cx="134.79" cy="110.00" r="6.67"/>
+                    <circle cx="126.54" cy="95.49" r="6.67"/>
+                    <circle cx="118.26" cy="81.01" r="6.67"/>
+                    <circle cx="109.96" cy="66.54" r="6.67"/>
+                    <circle cx="101.66" cy="52.08" r="6.67"/>
+                    <circle cx="93.35" cy="37.63" r="6.67"/>
+                    <circle cx="109.41" cy="29.02" r="6.67"/>
+                    <circle cx="117.83" cy="43.49" r="6.67"/>
+                    <circle cx="126.27" cy="57.97" r="6.67"/>
+                    <circle cx="134.75" cy="72.47" r="6.67"/>
+                    <circle cx="143.28" cy="86.99" r="6.67"/>
+                    <circle cx="151.89" cy="101.55" r="6.67"/>
+                    <circle cx="126.30" cy="22.22" r="6.67"/>
+                    <circle cx="134.92" cy="36.94" r="6.67"/>
+                    <circle cx="143.60" cy="51.73" r="6.67"/>
+                    <circle cx="152.38" cy="66.65" r="6.67"/>
+                    <circle cx="143.84" cy="17.30" r="6.67"/>
+                    <circle cx="161.31" cy="81.76" r="6.67"/>
+                    <circle cx="152.68" cy="32.51" r="6.67"/>
+                    <circle cx="161.62" cy="47.94" r="6.67"/>
+                    <circle cx="170.46" cy="97.21" r="6.67"/>
+                    <circle cx="161.81" cy="14.33" r="6.67"/>
+                    <circle cx="170.72" cy="63.70" r="6.67"/>
+                    <circle cx="170.85" cy="30.28" r="6.67"/>
+                    <circle cx="180.00" cy="13.33" r="6.67"/>
+                    <circle cx="180.00" cy="46.67" r="6.67" style="stroke: black; stroke-width: 1px"/>
+                    <circle cx="180.00" cy="80.00" r="6.67"/>
+                    <circle cx="189.15" cy="30.28" r="6.67"/>
+                    <circle cx="189.28" cy="63.70" r="6.67"/>
+                    <circle cx="198.19" cy="14.33" r="6.67"/>
+                    <circle cx="189.54" cy="97.21" r="6.67"/>
+                    <circle cx="198.38" cy="47.94" r="6.67"/>
+                    <circle cx="207.32" cy="32.51" r="6.67"/>
+                    <circle cx="198.69" cy="81.76" r="6.67"/>
+                    <circle cx="216.16" cy="17.30" r="6.67"/>
+                    <circle cx="207.62" cy="66.65" r="6.67"/>
+                    <circle cx="216.40" cy="51.73" r="6.67"/>
+                    <circle cx="225.08" cy="36.94" r="6.67"/>
+                    <circle cx="233.70" cy="22.22" r="6.67"/>
+                    <circle cx="208.11" cy="101.55" r="6.67"/>
+                    <circle cx="216.72" cy="86.99" r="6.67"/>
+                    <circle cx="225.25" cy="72.47" r="6.67"/>
+                    <circle cx="233.73" cy="57.97" r="6.67"/>
+                    <circle cx="242.17" cy="43.49" r="6.67"/>
+                    <circle cx="250.59" cy="29.02" r="6.67"/>
+                    <circle cx="266.65" cy="37.63" r="6.67"/>
+                    <circle cx="258.34" cy="52.08" r="6.67"/>
+                    <circle cx="250.04" cy="66.54" r="6.67"/>
+                    <circle cx="241.74" cy="81.01" r="6.67"/>
+                    <circle cx="233.46" cy="95.49" r="6.67"/>
+                    <circle cx="225.21" cy="110.00" r="6.67"/>
+                    <circle cx="281.67" cy="47.93" r="6.67"/>
+                    <circle cx="273.34" cy="62.58" r="6.67"/>
+                    <circle cx="265.00" cy="77.28" r="6.67"/>
+                    <circle cx="256.67" cy="92.06" r="6.67"/>
+                    <circle cx="248.32" cy="106.97" r="6.67"/>
+                    <circle cx="295.47" cy="59.82" r="6.67"/>
+                    <circle cx="286.94" cy="74.82" r="6.67"/>
+                    <circle cx="239.94" cy="122.11" r="6.67"/>
+                    <circle cx="278.35" cy="89.97" r="6.67"/>
+                    <circle cx="307.90" cy="73.13" r="6.67"/>
+                    <circle cx="269.65" cy="105.34" r="6.67"/>
+                    <circle cx="298.96" cy="88.63" r="6.67"/>
+                    <circle cx="260.76" cy="121.03" r="6.67"/>
+                    <circle cx="289.82" cy="104.38" r="6.67"/>
+                    <circle cx="318.79" cy="87.73" r="6.67"/>
+                    <circle cx="251.53" cy="137.25" r="6.67"/>
+                    <circle cx="280.36" cy="120.51" r="6.67"/>
+                    <circle cx="309.20" cy="103.80" r="6.67"/>
+                    <circle cx="328.03" cy="103.43" r="6.67"/>
+                    <circle cx="299.19" cy="120.24" r="6.67"/>
+                    <circle cx="270.36" cy="137.17" r="6.67"/>
+                    <circle cx="317.52" cy="120.10" r="6.67"/>
+                    <circle cx="288.53" cy="137.18" r="6.67"/>
+                    <circle cx="335.51" cy="120.04" r="6.67"/>
+                    <circle cx="306.29" cy="137.24" r="6.67"/>
+                    <circle cx="259.38" cy="154.64" r="6.67"/>
+                    <circle cx="323.79" cy="137.30" r="6.67"/>
+                    <circle cx="341.12" cy="137.37" r="6.67"/>
+                    <circle cx="276.78" cy="154.81" r="6.67"/>
+                    <circle cx="293.94" cy="154.94" r="6.67"/>
+                    <circle cx="310.98" cy="155.05" r="6.67"/>
+                    <circle cx="327.92" cy="155.13" r="6.67"/>
+                    <circle cx="344.81" cy="155.20" r="6.67"/>
+                    <circle cx="263.07" cy="173.35" r="6.67"/>
+                    <circle cx="279.78" cy="173.34" r="6.67"/>
+                    <circle cx="296.48" cy="173.34" r="6.67"/>
+                    <circle cx="313.17" cy="173.34" r="6.67"/>
+                    <circle cx="329.85" cy="173.34" r="6.67"/>
+                    <circle cx="346.53" cy="173.34" r="6.67"/>
+                </g></svg>
+            </div>
+            <div class="col-md-5">
+                <table id="national-totals">
+                    <tr><td></td><td></td><td><strong></strong></td></tr>
+                    <tr><td></td><td></td><td><strong></strong></td></tr>
+                    <tr><td></td><td></td><td><strong></strong></td></tr>
+                    <tr><td></td><td></td><td><strong></strong></td></tr>
+                    <tr><td></td><td></td><td><strong></strong></td></tr>
+                </table>
+                <table id="majorities">
+                    <tr id="pro-indy-majority"><td><span aria-hidden="true"></span></td><td>Pro-indy majority</td><td></td></tr>
+                    <tr id="snp-majority"><td><span aria-hidden="true"></span></td><td>SNP majority</td><td></td></tr>
+                </table>
             </div>
         </div>
         <div class="row" id="region-results">

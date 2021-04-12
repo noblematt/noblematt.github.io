@@ -202,21 +202,38 @@ function update() {
         }
     });
 
-    var majority = "";
-    var majority_size = 0;
-    if (seat_totals.SNP >= 65) {
-        majority = "SNP";
-        majority_size = 2 * seat_totals.SNP - 129;
-    } else if (seat_totals.SNP + seat_totals.Green >= 65) {
-        majority = "Pro-Indy";
-        majority_size = 2 * (seat_totals.SNP + seat_totals.Green) - 129;
+    var snp_majority = 2 * seat_totals.SNP - 129;
+    var pro_indy_majority = snp_majority + 2 * seat_totals.Green;
+    var snp_row = document.getElementById("snp-majority");
+    var pro_indy_row = document.getElementById("pro-indy-majority");
+
+    if (snp_majority > 0) {
+        snp_row.classList = "majority-ok";
+        snp_row.children[0].children[0].classList = "glyphicon glyphicon-ok";
     } else {
-        majority = "Unionist";
-        majority_size = 129 - 2 * (seat_totals.SNP + seat_totals.Green);
+        snp_row.classList = "majority-no";
+        snp_row.children[0].children[0].classList = "glyphicon glyphicon-remove";
     }
-    var majority_row = document.getElementById("majority");
-    majority_row.children[0].textContent = majority + " majority";
-    majority_row.children[1].textContent = majority_size;
+    if (pro_indy_majority > 0) {
+        pro_indy_row.classList = "majority-ok";
+        pro_indy_row.children[0].children[0].classList = "glyphicon glyphicon-ok";
+    } else {
+        pro_indy_row.classList = "majority-no";
+        pro_indy_row.children[0].children[0].classList = "glyphicon glyphicon-remove";
+    }
+    snp_row.children[2].textContent = snp_majority;
+    pro_indy_row.children[2].textContent = pro_indy_majority;
+
+    var chart_circles = document.getElementById("seat-chart").children;
+    var seat_no = 0;
+    var parties = ["SNP", "Green", "Labour", "LibDem", "Conservative"];
+    for (var i in parties) {
+        var party = parties[i];
+        for (var j=0; j<seat_totals[party]; j++) {
+            chart_circles[seat_no].classList = party;
+            seat_no++;
+        }
+    }
 
     seat_totals = sorted(seat_totals);
     var national_totals = document.getElementById("national-totals").children[0];
@@ -224,7 +241,7 @@ function update() {
         var row = national_totals.children[i].children;
         row[0].innerHTML = visual_party(seat_totals[i][0]);
         row[1].textContent = seat_totals[i][0];
-        row[2].textContent = seat_totals[i][1];
+        row[2].children[0].textContent = seat_totals[i][1];
     }
 }
 
@@ -317,6 +334,7 @@ function update_region(region, snp_constituency_delta, list_split) {
 function enable_constituency_slider() {
     document.getElementById("constituency-slider").classList.remove("hidden");
     document.getElementById("constituency-slider-button").classList.add("hidden");
+    document.getElementById("snp-constituency-delta").focus();
 }
 
 function add_th(number) {

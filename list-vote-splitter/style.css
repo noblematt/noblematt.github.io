@@ -1,39 +1,43 @@
-.SNP { color: #cc0; }
-.Green { color: #0c0; }
-.Conservative { color: #00c; }
-.Labour { color: #c00; }
-.LibDem { color: #f60; }
+.SNP { color: #cc0; fill: #cc0; }
+.Green { color: #0c0; fill: #0c0; }
+.Conservative { color: #00c; fill: #00c }
+.Labour { color: #c00; fill: #c00; }
+.LibDem { color: #f60; fill: #f60; }
 
 .region p, .region h3 {
     text-align: center;
 }
 
-.region {
+.region, #sliders {
     background-color: #eee;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
     border: 1px solid #888;
+    border-radius: 10px;
 }
 
-#main {
-    margin-top: 150px;
+.region {
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 #sliders {
-    padding-top: 10px;
+    margin: 10px;
+    padding: 10px;
 }
 
-#sliders label {
-    white-space: nowrap;
-}
-
-#national-totals td {
+td {
     padding-left: 10px;
 }
 
-#majority td {
+table {
+    margin-top: 5px;
+}
+
+.majority-ok {
     font-weight: bold;
+}
+
+.majority-no {
+    color: #999;
 }
 
 body { padding-bottom: 30px; }
