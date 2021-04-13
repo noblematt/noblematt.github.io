@@ -226,7 +226,7 @@ function update() {
 
     var chart_circles = document.getElementById("seat-chart").children;
     var seat_no = 0;
-    var parties = ["SNP", "Green", "Labour", "LibDem", "Conservative"];
+    var parties = ["Green", "SNP", "Labour", "LibDem", "Conservative"];
     for (var i in parties) {
         var party = parties[i];
         for (var j=0; j<seat_totals[party]; j++) {
@@ -276,20 +276,10 @@ function update_region(region, snp_constituency_delta, list_split) {
         total_list_votes += list_votes[party];
     }
 
-    var tbody = document.getElementById(region.name + "-list-votes").children[1];
-    var sorted_list_votes = sorted(list_votes);
-    for(var i in sorted_list_votes) {
-        var row = tbody.children[i];
-        var party = sorted_list_votes[i][0];
-        var votes = sorted_list_votes[i][1];
-        row.children[0].innerHTML = visual_party(party);
-        row.children[1].textContent = votes.toLocaleString();
-        row.children[2].textContent = percentage(votes / total_list_votes);
-    }
-
     var region_seats = {};
     Object.assign(region_seats, constituency_seats_after);
     tbody = document.getElementById(region.name + "-list-seats").children[1];
+    var threshold;
     for (var i=0; i<7; i++) {
         var winner = "";
         var winning_numerator = 0;
@@ -298,7 +288,7 @@ function update_region(region, snp_constituency_delta, list_split) {
         for (var party in list_votes) {
             var numerator = list_votes[party];
             var denominator = 1 + region_seats[party];
-            var total = Math.round(numerator / denominator);
+            var total = numerator / denominator;
             if (total > winning_total) {
                 winner = party;
                 winning_total = total;
@@ -311,7 +301,8 @@ function update_region(region, snp_constituency_delta, list_split) {
         var row = tbody.children[i];
         row.children[0].innerHTML = visual_party(winner);
         row.children[1].textContent = winning_numerator.toLocaleString() + " / " + winning_denominator;
-        row.children[3].textContent = winning_total.toLocaleString();
+        row.children[3].textContent = Math.round(winning_total).toLocaleString();
+        threshold = winning_total;
 
         if (i == 6) {
             ["SNP", "Green"].forEach(party => {
@@ -324,11 +315,51 @@ function update_region(region, snp_constituency_delta, list_split) {
         }
     }
 
+    var tbody = document.getElementById(region.name + "-list-votes").children[1];
+    var labels = document.getElementById(region.name + "-list-vote-labels").children;
+    labels[10].textContent = "Threshold: " + Math.round(threshold).toLocaleString();
+    var chart = '';
+    var sorted_list_votes = sorted(list_votes);
+    var most_votes;
+    for(var i in sorted_list_votes) {
+        var row = tbody.children[i].children;
+        var party = sorted_list_votes[i][0];
+        var votes = sorted_list_votes[i][1];
+        if (i == 0) {
+            most_votes = votes;
+        }
+        chart += render_bar(i, party, votes, constituency_seats_after[party], most_votes, threshold);
+        row[0].innerHTML = visual_party(party);
+        row[1].textContent = votes.toLocaleString();
+        labels[i * 2].textContent = votes.toLocaleString();
+        row[2].textContent = percentage(votes / total_list_votes);
+        labels[i * 2 + 1].textContent = percentage(votes / total_list_votes);
+    }
+    document.getElementById(region.name + "-chart").innerHTML = chart;
+
     var total_seats_label = '<strong>Total seats</strong>: ';
     total_seats_label += visual_seats(region_seats);
     document.getElementById(region.name + "-total-seats").innerHTML = total_seats_label;
 
     return region_seats;
+}
+
+function render_bar(index, party, votes, constituency_seats, most_votes, threshold) {
+    var bar = '';
+    for (var i=0; i * threshold <= votes; i++) {
+        var class_list = party + " bar-segment";
+        if (constituency_seats > i) {
+            class_list += ' seat-already-awarded';
+        }
+        if (votes < (i + 1) * threshold) {
+            class_list += ' insufficient';
+        }
+        bar += '<rect width="50" x="' + (index * 60 + 5) + '" ';
+        bar += 'height="' + (200 * Math.min(threshold, votes - (i * threshold)) / most_votes) + '" ';
+        bar += 'y="' + (220 - (200 * Math.min((i + 1) * threshold, votes) / most_votes)) + '" ';
+        bar += 'class="' + class_list + '" />';
+    }
+    return bar;
 }
 
 function enable_constituency_slider() {
@@ -429,7 +460,7 @@ function visual_party(party) {
 }
 
 var REGION_HTML = '<h3>REGION_NAME</h3><p id="REGION_NAME-constituencies"></p>';
-REGION_HTML += '<div class="row"><div class="col-sm-7">';
+REGION_HTML += '<div class="row hidden"><div class="col-sm-7">';
 REGION_HTML += '<table class="table" id="REGION_NAME-list-seats">';
 REGION_HTML += '<thead><tr><th colspan=4>List Seats</th></tr></thead><tbody>';
 for(var i=0; i<7; i++) {
@@ -443,16 +474,34 @@ for(var i=0; i<5; i++) {
 }
 REGION_HTML += '</tbody></table></div>';
 REGION_HTML += '</div>';
+REGION_HTML += '<svg width="300" height="300"><g id="REGION_NAME-chart"></g>';
+REGION_HTML += '<g id="REGION_NAME-list-vote-labels">';
+REGION_HTML += '<text x="30" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="30" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="90" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="90" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="150" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="150" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="210" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="210" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="270" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="270" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="150" y="285" style="font-size:16px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="100" y="20" style="font-size:16px;font-weight:bold;">List Vote Allocation</text>';
+REGION_HTML += '</g></svg>';
 REGION_HTML += '<p id="REGION_NAME-total-seats"></p>';
 
 function set_up() {
     var row = document.getElementById("region-results");
     for (var i in REGIONS) {
         var column = document.createElement("div");
-        column.classList = "col-md-5 region";
-        column.id = REGIONS[i].name;
+        var div = document.createElement("div");
+        column.classList = "col-md-6 col-sm-12 col-xs-12";
+        div.classList = "region";
+        div.id = REGIONS[i].name;
         row.appendChild(column);
-        column.innerHTML = REGION_HTML.replace(/REGION_NAME/g, REGIONS[i].name);
+        column.appendChild(div);
+        div.innerHTML = REGION_HTML.replace(/REGION_NAME/g, REGIONS[i].name);
     }
 }
 
