@@ -356,7 +356,7 @@ function render_bar(index, party, votes, constituency_seats, most_votes, thresho
         }
         bar += '<rect width="50" x="' + (index * 60 + 5) + '" ';
         bar += 'height="' + (200 * Math.min(threshold, votes - (i * threshold)) / most_votes) + '" ';
-        bar += 'y="' + (220 - (200 * Math.min((i + 1) * threshold, votes) / most_votes)) + '" ';
+        bar += 'y="' + (230 - (200 * Math.min((i + 1) * threshold, votes) / most_votes)) + '" ';
         bar += 'class="' + class_list + '" />';
     }
     return bar;
@@ -474,20 +474,20 @@ for(var i=0; i<5; i++) {
 }
 REGION_HTML += '</tbody></table></div>';
 REGION_HTML += '</div>';
-REGION_HTML += '<svg width="300" height="300"><g id="REGION_NAME-chart"></g>';
+REGION_HTML += '<svg width="300" height="320"><g id="REGION_NAME-chart"></g>';
 REGION_HTML += '<g id="REGION_NAME-list-vote-labels">';
-REGION_HTML += '<text x="30" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="30" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="90" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="90" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="150" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="150" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="210" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="210" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="270" y="240" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="270" y="260" style="font-size:14px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="150" y="285" style="font-size:16px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="100" y="20" style="font-size:16px;font-weight:bold;">List Vote Allocation</text>';
+REGION_HTML += '<text x="30" y="250" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="30" y="270" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="90" y="250" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="90" y="270" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="150" y="250" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="150" y="270" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="210" y="250" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="210" y="270" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="270" y="250" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="270" y="270" class="list-votes-chart-label"></text>';
+REGION_HTML += '<text x="150" y="295" style="font-size:16px;text-align:center;text-anchor:middle;"></text>';
+REGION_HTML += '<text x="150" y="25" style="font-size:16px;font-weight:bold;text-align:center;text-anchor:middle;">Additional member results</text>';
 REGION_HTML += '</g></svg>';
 REGION_HTML += '<p id="REGION_NAME-total-seats"></p>';
 

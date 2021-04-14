@@ -46,6 +46,16 @@ svg {
     fill-opacity: 0.3;
 }
 
+.list-votes-chart-label {
+    font-size:14px;
+    text-align:center;
+    text-anchor:middle;
+}
+
+.panel-heading {
+    cursor: pointer;
+}
+
 body { padding-bottom: 30px; }
 tbody { white-space: nowrap; }
 th { text-align: center; }
