@@ -368,6 +368,18 @@ function enable_constituency_slider() {
     document.getElementById("snp-constituency-delta").focus();
 }
 
+function update_collapse(n) {
+    var elements = document.getElementsByClassName("panel");
+    for (var i=0; i<elements.length; i++) {
+        var element = elements[i];
+        var class_list = "glyphicon glyphicon-expand";
+        if (i == n && !element.children[1].classList.contains("in")) {
+            class_list = "glyphicon glyphicon-collapse-down";
+        }
+        element.children[0].children[0].children[0].classList = class_list;
+    }
+}
+
 function add_th(number) {
     if (number == 1) {
         return "1st";
