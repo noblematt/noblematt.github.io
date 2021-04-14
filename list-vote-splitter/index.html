@@ -194,300 +194,298 @@
         </div>
         <div class="row">
             <div class="col-md-8 col-sm-12 col-xs-12">
-                <div class="panel-group" id="accordion">
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading" data-toggle="collapse" data-target="#which-side-panel" data-parent="#accordion" onclick="update_collapse(0)">
-                            <h2 class="panel-title">
-                                <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
-                                Which side is right?
-                            </h2>
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#which-side-panel" onclick="update_collapse(this)">
+                        <h2 class="panel-title">
+                            <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
+                            Which side is right?
+                        </h2>
+                    </div>
+                    <div id="which-side-panel" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                If you move the slider in both directions, you will see that
+                                both sides of the debate have at least some merit.  If the split
+                                had been the same as in 2011 (4.4% / 44.0%) then the SNP would
+                                have held onto a parliamentary majority (though reduced from 9
+                                to 1). On the other hand if even more SNP votes had shifted to
+                                Green then there would have been a larger majority of
+                                pro-independence MSPs.
+                            </p>
+                            <p>
+                                Really the question comes down to what your priority is. If your
+                                priority is to secure a majority SNP government at all costs,
+                                then you will say that the SNP need to take almost every single
+                                pro-indy list vote to ensure that happens. If your priority is
+                                to elect more pro-indy MSPs and fewer unionists, then you will
+                                say that a vote for the Greens is a best way to achieve this.
+                            </p>
+                            <p>
+                                One weakness in the SNP argument is that they really do need to
+                                take a huge portion of the pro-independence list votes in order
+                                to get a majority using list seats. To win list seats in most
+                                regions the SNP need to win almost all of the pro-indy list
+                                votes, while the Greens can make significant gains with just a
+                                fraction of those votes. Recent opinion polls suggest it is
+                                quite likely the SNP will win zero list seats nationwide,
+                                meaning all votes for them will have been for no gain. They also
+                                suggest that the SNP have a good chance of securing a majority
+                                with constituency seats alone.
+                            </p>
                         </div>
-                        <div id="which-side-panel" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>
-                                    If you move the slider in both directions, you will see that
-                                    both sides of the debate have at least some merit.  If the split
-                                    had been the same as in 2011 (4.4% / 44.0%) then the SNP would
-                                    have held onto a parliamentary majority (though reduced from 9
-                                    to 1). On the other hand if even more SNP votes had shifted to
-                                    Green then there would have been a larger majority of
-                                    pro-independence MSPs.
-                                </p>
-                                <p>
-                                    Really the question comes down to what your priority is. If your
-                                    priority is to secure a majority SNP government at all costs,
-                                    then you will say that the SNP need to take almost every single
-                                    pro-indy list vote to ensure that happens. If your priority is
-                                    to elect more pro-indy MSPs and fewer unionists, then you will
-                                    say that a vote for the Greens is a best way to achieve this.
-                                </p>
-                                <p>
-                                    One weakness in the SNP argument is that they really do need to
-                                    take a huge portion of the pro-independence list votes in order
-                                    to get a majority using list seats. To win list seats in most
-                                    regions the SNP need to win almost all of the pro-indy list
-                                    votes, while the Greens can make significant gains with just a
-                                    fraction of those votes. Recent opinion polls suggest it is
-                                    quite likely the SNP will win zero list seats nationwide,
-                                    meaning all votes for them will have been for no gain. They also
-                                    suggest that the SNP have a good chance of securing a majority
-                                    with constituency seats alone.
-                                </p>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#list-panel" onclick="update_collapse(this)">
+                        <h2 class="panel-title">
+                            <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
+                            How are list seats allocated?
+                        </h2>
+                    </div>
+                    <div id="list-panel" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                Scotland is divided into eight electoral regions, with each
+                                region electing seven regional (or "list") MSPs under an
+                                Additional Member System.
+                            </p>
+                            <p>
+                                The segmented bar charts above give an idea of how the seats are
+                                allocated. There is a threshold each party needs to reach to get
+                                a seat. If you divide a party's vote tally by the threshold, you
+                                get the minimum number of seats they are guaranteed. If they
+                                don't reach that number with their constituency seats, they are
+                                awarded list seats to top them up.
+                            </p>
+                            <p>
+                                This is a useful way to understand how the Additional Member
+                                System works in effect, but it is a simplification and not quite
+                                how the seats are allocated in practice.  The "threshold" is
+                                just an arbitrary number that depends on how the votes (and
+                                constituency seats) are distributed.
+                            </p>
+                            <p>
+                                In practice the seven list seats are allocated in sequence. Each
+                                seat is awarded to the party with the most votes on the regional
+                                ballot, after applying the following simple formula:
+                                <em>total_votes / (n + 1)</em>, where <em>n</em> is the number
+                                of seats the party has already won in the region, including
+                                constituency seats.
+                            </p>
+                            <p>
+                                This means that if a party has not yet won any seats in the
+                                region, <em>n = 0</em> and their vote tally is divided by one
+                                (i.e. it is unchanged).  If a party has already won one seat,
+                                <em>n = 1</em> and their votes are divided by two as they go for
+                                their second seat. And so on.
+                            </p>
+                            <p>
+                                This formula makes it much harder to win list seats for a party
+                                which has done well on the constituency ballot, as they can in
+                                some cases be starting off with their votes being divided by as
+                                much as eleven.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#constituencies-panel" onclick="update_collapse(this)">
+                        <h2 class="panel-title">
+                            <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
+                            What if the constituency results had been different?
+                        </h2>
+                    </div>
+                    <div id="constituencies-panel" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                One of the arguments for <em>#BothVotesSNP</em> is that the SNP
+                                might not perform as well as expected in the constituency
+                                ballot. If this happens, their list votes will act as an
+                                insurance policy and they can pick up list seats to replace the
+                                lost constituency seats.
+                            </p>
+                            <p>
+                                Recent polling suggests that this is highly unlikely to happen,
+                                and in fact suggests the SNP might even pick up so many
+                                constituencies in the South Scotland region that they will lose
+                                all three of their list seats there, leaving them with just one
+                                list seat in the whole country.
+                            </p>
+                            <p>
+                                Polls are not a guarantee of support at the ballot box though,
+                                so they do not invalidate the argument. It is true that list
+                                votes for the SNP can act as an insurance policy in the event
+                                that they lose constituency seats. However, if that doesn't
+                                happen then those list votes for the SNP will indeed end up
+                                gaining no seats in most regions.
+                            </p>
+                            <p>
+                                By contrast, the Greens are likely to be competitive in the list
+                                vote in every region, meaning a Green vote will have value in
+                                every region regardless of the outcome of the constituency
+                                ballot.
+                            </p>
+                            <div id="constituency-slider-button">
+                                <p><em>
+                                    To see how the constituency ballot impacts the results,
+                                    click on the button below to enable a slider to vary the
+                                    SNP's constituency vote share:
+                                </em></p>
+                                <button class="btn btn-default" onclick="enable_constituency_slider()">
+                                    Enable constituency vote slider
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading" data-toggle="collapse" data-target="#list-panel" data-parent="#accordion" onclick="update_collapse(1)">
-                            <h2 class="panel-title">
-                                <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
-                                How are list seats allocated?
-                            </h2>
-                        </div>
-                        <div id="list-panel" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>
-                                    Scotland is divided into eight electoral regions, with each
-                                    region electing seven regional (or "list") MSPs under an
-                                    Additional Member System.
-                                </p>
-                                <p>
-                                    The segmented bar charts above give an idea of how the seats are
-                                    allocated. There is a threshold each party needs to reach to get
-                                    a seat. If you divide a party's vote tally by the threshold, you
-                                    get the minimum number of seats they are guaranteed. If they
-                                    don't reach that number with their constituency seats, they are
-                                    awarded list seats to top them up.
-                                </p>
-                                <p>
-                                    This is a useful way to understand how the Additional Member
-                                    System works in effect, but it is a simplification and not quite
-                                    how the seats are allocated in practice.  The "threshold" is
-                                    just an arbitrary number that depends on how the votes (and
-                                    constituency seats) are distributed.
-                                </p>
-                                <p>
-                                    In practice the seven list seats are allocated in sequence. Each
-                                    seat is awarded to the party with the most votes on the regional
-                                    ballot, after applying the following simple formula:
-                                    <em>total_votes / (n + 1)</em>, where <em>n</em> is the number
-                                    of seats the party has already won in the region, including
-                                    constituency seats.
-                                </p>
-                                <p>
-                                    This means that if a party has not yet won any seats in the
-                                    region, <em>n = 0</em> and their vote tally is divided by one
-                                    (i.e. it is unchanged).  If a party has already won one seat,
-                                    <em>n = 1</em> and their votes are divided by two as they go for
-                                    their second seat. And so on.
-                                </p>
-                                <p>
-                                    This formula makes it much harder to win list seats for a party
-                                    which has done well on the constituency ballot, as they can in
-                                    some cases be starting off with their votes being divided by as
-                                    much as eleven.
-                                </p>
-                            </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#majority-panel" onclick="update_collapse(this)">
+                        <h2 class="panel-title">
+                            <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
+                            What about the SNP's majority in 2011?
+                        </h2>
+                    </div>
+                    <div id="majority-panel" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                If it's so hard to gain list seats when doing well in the
+                                constituency ballot, then how did the SNP manage to get a
+                                majority in 2011? They won only 53 constituencies in 2011 but
+                                gained a majority due to 16 list seats. So how did they lose
+                                that majority in 2016 when they increased their constituency
+                                tally to 59?
+                            </p>
+                            <p>
+                                Some people argue that the SNP lost their majority in 2016
+                                because their list vote dropped from 44.0% to 41.7%, but that
+                                does not adequately explain the deficit. If you adjust the
+                                slider to give the SNP 44.0% of the list vote in 2016, they
+                                regain their majority, but only just. They still drop from 69
+                                seats to 65, and this adjustment to give the SNP two seats costs
+                                the Greens four, costing the independence movement two seats
+                                overall.
+                            </p>
+                            <p>
+                                In fact, the two pro-independence parties picked up roughly the
+                                same combined list vote share in 2016 as in 2011 (losing 0.1%
+                                overall), but lost two seats. This is not because of votes going
+                                from SNP to Green. While the SNP lost 2.3% and the Greens gained
+                                2.2%, if you try adjusting the slider you will see that there is
+                                no way to make the two parties' tallies add up to more than 69 -
+                                unless, that is, you move even more votes from SNP to Green.
+                            </p>
+                            <p>
+                                In fact, the majority for the SNP in 2011 was down to nothing
+                                more than a fluke of arithmetic. In Holyrood's
+                                quasi-proportional voting system it really shouldn't be possible
+                                to get a result like 2011, where a single party picks up 53.5%
+                                of the seats with 44.0% of the list vote, unless they pull off a
+                                nearly clean sweep of constituencies.
+                            </p>
+                            <p>
+                                The reason why it happened in 2011 is because other parties
+                                "wasted" a lot of votes. Some of these votes were "wasted" by
+                                smaller parties who did not pick up enough votes to get any
+                                seats, but most were due to the three establishment unionist
+                                parties picking up nearly enough votes to get one more seat and
+                                falling just short. This happened to Labour and/or the Tories in
+                                every region where the SNP won a majority of seats.  There is no
+                                way to predict this or to exploit or mitigate it through
+                                tactical voting, it's just pure dumb luck.
+                            </p>
                         </div>
                     </div>
+                </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading" data-toggle="collapse" data-target="#constituencies-panel" data-parent="#accordion" onclick="update_collapse(2)">
-                            <h2 class="panel-title">
-                                <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
-                                What if the constituency results had been different?
-                            </h2>
-                        </div>
-                        <div id="constituencies-panel" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>
-                                    One of the arguments for <em>#BothVotesSNP</em> is that the SNP
-                                    might not perform as well as expected in the constituency
-                                    ballot. If this happens, their list votes will act as an
-                                    insurance policy and they can pick up list seats to replace the
-                                    lost constituency seats.
-                                </p>
-                                <p>
-                                    Recent polling suggests that this is highly unlikely to happen,
-                                    and in fact suggests the SNP might even pick up so many
-                                    constituencies in the South Scotland region that they will lose
-                                    all three of their list seats there, leaving them with just one
-                                    list seat in the whole country.
-                                </p>
-                                <p>
-                                    Polls are not a guarantee of support at the ballot box though,
-                                    so they do not invalidate the argument. It is true that list
-                                    votes for the SNP can act as an insurance policy in the event
-                                    that they lose constituency seats. However, if that doesn't
-                                    happen then those list votes for the SNP will indeed end up
-                                    gaining no seats in most regions.
-                                </p>
-                                <p>
-                                    By contrast, the Greens are likely to be competitive in the list
-                                    vote in every region, meaning a Green vote will have value in
-                                    every region regardless of the outcome of the constituency
-                                    ballot.
-                                </p>
-                                <div id="constituency-slider-button">
-                                    <p><em>
-                                        To see how the constituency ballot impacts the results,
-                                        click on the button below to enable a slider to vary the
-                                        SNP's constituency vote share:
-                                    </em></p>
-                                    <button class="btn btn-default" onclick="enable_constituency_slider()">
-                                        Enable constituency vote slider
-                                    </button>
-                                </div>
-                            </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#alba-panel" onclick="update_collapse(this)">
+                        <h2 class="panel-title">
+                            <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
+                            What about the Alba party?
+                        </h2>
+                    </div>
+                    <div id="alba-panel" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                The numbers on this page are based off of the results from the
+                                2016 election. As they did not exist at that point in time, the
+                                Alba Party do not feature. This page is only intended to
+                                illustrate some of the arguments around tactical list voting in
+                                principle, with the SNP/Green vote breakdown for 2016 as an
+                                example.
+                            </p>
+                            <p>
+                                If Alba can build up to have a similar level of support to what
+                                the Greens had in 2016 (i.e. around 6%) then they can be
+                                competitive in every region and the arguments laid out here for
+                                voting Green would also apply to them. Polling so far suggests
+                                that they are not at this level yet. If they end up taking
+                                around 3% then there is a risk is that they could take a lot of
+                                votes from other pro-independence parties but fail to achieve
+                                any seats with those votes.
+                            </p>
                         </div>
                     </div>
+                </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-heading" data-toggle="collapse" data-target="#majority-panel" data-parent="#accordion" onclick="update_collapse(3)">
-                            <h2 class="panel-title">
-                                <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
-                                What about the SNP's majority in 2011?
-                            </h2>
-                        </div>
-                        <div id="majority-panel" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>
-                                    If it's so hard to gain list seats when doing well in the
-                                    constituency ballot, then how did the SNP manage to get a
-                                    majority in 2011? They won only 53 constituencies in 2011 but
-                                    gained a majority due to 16 list seats. So how did they lose
-                                    that majority in 2016 when they increased their constituency
-                                    tally to 59?
-                                </p>
-                                <p>
-                                    Some people argue that the SNP lost their majority in 2016
-                                    because their list vote dropped from 44.0% to 41.7%, but that
-                                    does not adequately explain the deficit. If you adjust the
-                                    slider to give the SNP 44.0% of the list vote in 2016, they
-                                    regain their majority, but only just. They still drop from 69
-                                    seats to 65, and this adjustment to give the SNP two seats costs
-                                    the Greens four, costing the independence movement two seats
-                                    overall.
-                                </p>
-                                <p>
-                                    In fact, the two pro-independence parties picked up roughly the
-                                    same combined list vote share in 2016 as in 2011 (losing 0.1%
-                                    overall), but lost two seats. This is not because of votes going
-                                    from SNP to Green. While the SNP lost 2.3% and the Greens gained
-                                    2.2%, if you try adjusting the slider you will see that there is
-                                    no way to make the two parties' tallies add up to more than 69 -
-                                    unless, that is, you move even more votes from SNP to Green.
-                                </p>
-                                <p>
-                                    In fact, the majority for the SNP in 2011 was down to nothing
-                                    more than a fluke of arithmetic. In Holyrood's
-                                    quasi-proportional voting system it really shouldn't be possible
-                                    to get a result like 2011, where a single party picks up 53.5%
-                                    of the seats with 44.0% of the list vote, unless they pull off a
-                                    nearly clean sweep of constituencies.
-                                </p>
-                                <p>
-                                    The reason why it happened in 2011 is because other parties
-                                    "wasted" a lot of votes. Some of these votes were "wasted" by
-                                    smaller parties who did not pick up enough votes to get any
-                                    seats, but most were due to the three establishment unionist
-                                    parties picking up nearly enough votes to get one more seat and
-                                    falling just short. This happened to Labour and/or the Tories in
-                                    every region where the SNP won a majority of seats.  There is no
-                                    way to predict this or to exploit or mitigate it through
-                                    tactical voting, it's just pure dumb luck.
-                                </p>
-                            </div>
-                        </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading" data-toggle="collapse" data-target="#gaming-panel" onclick="update_collapse(this)">
+                        <h2 class="panel-title">
+                            <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
+                            Isn't all this just "gaming the system"?
+                        </h2>
                     </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading" data-toggle="collapse" data-target="#alba-panel" data-parent="#accordion" onclick="update_collapse(4)">
-                            <h2 class="panel-title">
-                                <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
-                                What about the Alba party?
-                            </h2>
-                        </div>
-                        <div id="alba-panel" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>
-                                    The numbers on this page are based off of the results from the
-                                    2016 election. As they did not exist at that point in time, the
-                                    Alba Party do not feature. This page is only intended to
-                                    illustrate some of the arguments around tactical list voting in
-                                    principle, with the SNP/Green vote breakdown for 2016 as an
-                                    example.
-                                </p>
-                                <p>
-                                    If Alba can build up to have a similar level of support to what
-                                    the Greens had in 2016 (i.e. around 6%) then they can be
-                                    competitive in every region and the arguments laid out here for
-                                    voting Green would also apply to them. Polling so far suggests
-                                    that they are not at this level yet. If they end up taking
-                                    around 3% then there is a risk is that they could take a lot of
-                                    votes from other pro-independence parties but fail to achieve
-                                    any seats with those votes.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading" data-toggle="collapse" data-target="#gaming-panel" data-parent="#accordion" onclick="update_collapse(5)">
-                            <h2 class="panel-title">
-                                <span class="push-right glyphicon glyphicon-expand" aria-hidden=True></span>
-                                Isn't all this just "gaming the system"?
-                            </h2>
-                        </div>
-                        <div id="gaming-panel" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>
-                                    If every SNP supporter was to vote Green and thereby secure a
-                                    huge independence "supermajority", picking up around 75% of the
-                                    seats with only around 50% of the vote, one obvious objection is
-                                    that this would be "gaming the system". If we are trying to
-                                    achieve independence for Scotland, we should be promoting the
-                                    strengths of Scotland's institutions, not trying to exploit
-                                    their weaknesses.
-                                </p>
-                                <p>
-                                    On the other hand, the SNP gained 95% of all seats in Scotland
-                                    with just 50% of the vote in the 2015 Westminster election. If
-                                    Holyrood's halfway house attempt at a proportional voting system
-                                    is flawed, it is still better than Westminster's
-                                    winner-takes-all system. And under that system, Green supporters
-                                    in Scotland are very used to lending their votes to the SNP in
-                                    constituencies where the choice is between the SNP and a
-                                    unionist candidate.
-                                </p>
-                                <p>
-                                    However a more important point to note is that voters aren't
-                                    pawns on a chess board. While it's interesting to move votes
-                                    around and see how the results would change, nobody gets to do
-                                    that in real life. Each voter will make up their own mind who
-                                    they want to vote for. And while many independence supporters
-                                    are sympathetic to both the SNP and the Greens and can flit
-                                    between them based on tactical concerns, others strongly
-                                    disagree with every party other than their first choice and have
-                                    no intention of "lending" their vote to anybody.
-                                </p>
-                                <p>
-                                    This leads us nicely into another argument: there is no such
-                                    thing as a "wasted vote". In the purest, most idealistic
-                                    perspective, voting is an expression of our hope for the kind of
-                                    future we want to live in. As long as we cast it for a party
-                                    which truly encapsulates that hope, it is never wasted. Others
-                                    take a more pragmatic view; that no political party will ever
-                                    perfectly reflect all of your principles, voting is a means to
-                                    an end, and you should cast your vote in whichever way has the
-                                    best chance of making a positive impact.
-                                </p>
-                                <p>
-                                    At the end of the day it's up to you. Your vote belongs to you
-                                    and nobody else. Nobody gets to tell you what to do with it.
-                                </p>
-                            </div>
+                    <div id="gaming-panel" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <p>
+                                If every SNP supporter was to vote Green and thereby secure a
+                                huge independence "supermajority", picking up around 75% of the
+                                seats with only around 50% of the vote, one obvious objection is
+                                that this would be "gaming the system". If we are trying to
+                                achieve independence for Scotland, we should be promoting the
+                                strengths of Scotland's institutions, not trying to exploit
+                                their weaknesses.
+                            </p>
+                            <p>
+                                On the other hand, the SNP gained 95% of all seats in Scotland
+                                with just 50% of the vote in the 2015 Westminster election. If
+                                Holyrood's halfway house attempt at a proportional voting system
+                                is flawed, it is still better than Westminster's
+                                winner-takes-all system. And under that system, Green supporters
+                                in Scotland are very used to lending their votes to the SNP in
+                                constituencies where the choice is between the SNP and a
+                                unionist candidate.
+                            </p>
+                            <p>
+                                However a more important point to note is that voters aren't
+                                pawns on a chess board. While it's interesting to move votes
+                                around and see how the results would change, nobody gets to do
+                                that in real life. Each voter will make up their own mind who
+                                they want to vote for. And while many independence supporters
+                                are sympathetic to both the SNP and the Greens and can flit
+                                between them based on tactical concerns, others strongly
+                                disagree with every party other than their first choice and have
+                                no intention of "lending" their vote to anybody.
+                            </p>
+                            <p>
+                                This leads us nicely into another argument: there is no such
+                                thing as a "wasted vote". In the purest, most idealistic
+                                perspective, voting is an expression of our hope for the kind of
+                                future we want to live in. As long as we cast it for a party
+                                which truly encapsulates that hope, it is never wasted. Others
+                                take a more pragmatic view; that no political party will ever
+                                perfectly reflect all of your principles, voting is a means to
+                                an end, and you should cast your vote in whichever way has the
+                                best chance of making a positive impact.
+                            </p>
+                            <p>
+                                At the end of the day it's up to you. Your vote belongs to you
+                                and nobody else. Nobody gets to tell you what to do with it.
+                            </p>
                         </div>
                     </div>
                 </div>
