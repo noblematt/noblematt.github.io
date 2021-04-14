@@ -52,7 +52,7 @@ svg {
     text-anchor:middle;
 }
 
-.panel-heading {
+.panel-heading, .nav-tabs li {
     cursor: pointer;
 }
 

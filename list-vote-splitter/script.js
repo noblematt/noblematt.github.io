@@ -269,6 +269,7 @@ function update_region(region, snp_constituency_delta, list_split) {
     var constituency_label = '<strong>Constituency seats</strong>: ';
     constituency_label += visual_seats(constituency_seats_after);
     document.getElementById(region.name + "-constituencies").innerHTML = constituency_label;
+    document.getElementById("tab-" + region.name + "-constituencies").innerHTML = constituency_label;
 
     var list_votes = reassign_list_votes(region.list_votes, list_split);
     var total_list_votes = 0;
@@ -317,7 +318,11 @@ function update_region(region, snp_constituency_delta, list_split) {
 
     var tbody = document.getElementById(region.name + "-list-votes").children[1];
     var labels = document.getElementById(region.name + "-list-vote-labels").children;
-    labels[10].textContent = "Threshold: " + Math.round(threshold).toLocaleString();
+    var tab_labels = document.getElementById("tab-" + region.name + "-list-vote-labels").children;
+    var threshold_label = "Threshold: " + Math.round(threshold).toLocaleString();
+    threshold_label += " (" + percentage(threshold / total_list_votes) + ")";
+    labels[10].textContent = threshold_label;
+    tab_labels[10].textContent = threshold_label;
     var chart = '';
     var sorted_list_votes = sorted(list_votes);
     var most_votes;
@@ -332,14 +337,18 @@ function update_region(region, snp_constituency_delta, list_split) {
         row[0].innerHTML = visual_party(party);
         row[1].textContent = votes.toLocaleString();
         labels[i * 2].textContent = votes.toLocaleString();
+        tab_labels[i * 2].textContent = votes.toLocaleString();
         row[2].textContent = percentage(votes / total_list_votes);
         labels[i * 2 + 1].textContent = percentage(votes / total_list_votes);
+        tab_labels[i * 2 + 1].textContent = percentage(votes / total_list_votes);
     }
     document.getElementById(region.name + "-chart").innerHTML = chart;
+    document.getElementById("tab-" + region.name + "-chart").innerHTML = chart;
 
     var total_seats_label = '<strong>Total seats</strong>: ';
     total_seats_label += visual_seats(region_seats);
     document.getElementById(region.name + "-total-seats").innerHTML = total_seats_label;
+    document.getElementById("tab-" + region.name + "-total-seats").innerHTML = total_seats_label;
 
     return region_seats;
 }
@@ -468,20 +477,7 @@ function visual_party(party) {
 }
 
 var REGION_HTML = '<h3>REGION_NAME</h3><p id="REGION_NAME-constituencies"></p>';
-REGION_HTML += '<div class="row hidden"><div class="col-sm-7">';
-REGION_HTML += '<table class="table" id="REGION_NAME-list-seats">';
-REGION_HTML += '<thead><tr><th colspan=4>List Seats</th></tr></thead><tbody>';
-for(var i=0; i<7; i++) {
-    REGION_HTML += '<tr><td></td><td></td><td>=</td><td></td></tr>';
-}
-REGION_HTML += '</tbody></table></div>';
-REGION_HTML += '<div class="col-sm-5"><table class="table" id="REGION_NAME-list-votes">';
-REGION_HTML += '<thead><tr><th colspan=3>List Votes</th></tr></thead><tbody>';
-for(var i=0; i<5; i++) {
-    REGION_HTML += '<tr><td></td><td></td><td></td></tr>';
-}
-REGION_HTML += '</tbody></table></div>';
-REGION_HTML += '</div>';
+REGION_HTML += 'EXTRA_DETAIL';
 REGION_HTML += '<svg width="300" height="320"><g id="REGION_NAME-chart"></g>';
 REGION_HTML += '<g id="REGION_NAME-list-vote-labels">';
 REGION_HTML += '<text x="30" y="250" class="list-votes-chart-label"></text>';
@@ -499,17 +495,44 @@ REGION_HTML += '<text x="150" y="25" style="font-size:16px;font-weight:bold;text
 REGION_HTML += '</g></svg>';
 REGION_HTML += '<p id="REGION_NAME-total-seats"></p>';
 
+var REGION_EXTRA_DETAIL = '<div class="row"><div class="col-sm-7">';
+REGION_EXTRA_DETAIL += '<table class="table" id="REGION_NAME-list-seats">';
+REGION_EXTRA_DETAIL += '<thead><tr><th colspan=4>List Seats</th></tr></thead><tbody>';
+for(var i=0; i<7; i++) {
+    REGION_EXTRA_DETAIL += '<tr><td></td><td></td><td>=</td><td></td></tr>';
+}
+REGION_EXTRA_DETAIL += '</tbody></table></div>';
+REGION_EXTRA_DETAIL += '<div class="col-sm-5"><table class="table" id="REGION_NAME-list-votes">';
+REGION_EXTRA_DETAIL += '<thead><tr><th colspan=3>List Votes</th></tr></thead><tbody>';
+for(var i=0; i<5; i++) {
+    REGION_EXTRA_DETAIL += '<tr><td></td><td></td><td></td></tr>';
+}
+REGION_EXTRA_DETAIL += '</tbody></table></div>';
+REGION_EXTRA_DETAIL += '</div>';
+
 function set_up() {
     var row = document.getElementById("region-results");
+    var tabs = document.getElementById("region-tab-contents");
     for (var i in REGIONS) {
+        var name = REGIONS[i].name;
+
         var column = document.createElement("div");
         var div = document.createElement("div");
         column.classList = "col-md-6 col-sm-12 col-xs-12";
         div.classList = "region";
-        div.id = REGIONS[i].name;
+        div.id = name;
         row.appendChild(column);
         column.appendChild(div);
-        div.innerHTML = REGION_HTML.replace(/REGION_NAME/g, REGIONS[i].name);
+        div.innerHTML = REGION_HTML.replace(/REGION_NAME/g, name).replace("EXTRA_DETAIL", "");
+
+        var tab = document.createElement("div");
+        tab.id = name.replace(/ /g, "-") + "-tab";
+        tab.classList = "tab-pane";
+        tab.innerHTML = REGION_HTML
+            .replace(/id="/g, 'id="tab-')
+            .replace(/EXTRA_DETAIL/, REGION_EXTRA_DETAIL)
+            .replace(/REGION_NAME/g, name);
+        tabs.appendChild(tab)
     }
 }
 
