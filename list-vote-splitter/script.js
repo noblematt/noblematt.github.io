@@ -330,7 +330,7 @@ function update_region(region, snp_constituency_delta, list_split) {
         row[1].textContent = votes.toLocaleString();
         row[2].textContent = percentage(votes / total_list_votes);
     }
-    var chart = render_bar_chart('Additional member results', sorted_list_votes, threshold, total_list_votes, constituency_seats_after)
+    var chart = render_bar_chart('Additional member results', sorted_list_votes, threshold, total_list_votes, constituency_seats_after, 200)
     document.getElementById(region.name + "-chart").innerHTML = chart;
     document.getElementById("tab-" + region.name + "-chart").innerHTML = chart;
 
@@ -342,8 +342,8 @@ function update_region(region, snp_constituency_delta, list_split) {
     return region_seats;
 }
 
-function render_bar_chart(title, party_votes, threshold, total_votes, constituency_seats) {
-    var chart = '<svg width="300" height="320"><g>';
+function render_bar_chart(title, party_votes, threshold, total_votes, constituency_seats, height) {
+    var chart = '<svg width="300" height="' + (height + 120) + '"><g>';
     chart += '<text x="150" y="25" class="bar-chart-title">' + title + '</text>';
     var most_votes;
     for(var i in party_votes) {
@@ -352,16 +352,16 @@ function render_bar_chart(title, party_votes, threshold, total_votes, constituen
         if (i == 0) {
             most_votes = votes;
         }
-        chart += render_bar(i, party, votes, constituency_seats[party], most_votes, total_votes, threshold);
+        chart += render_bar(i, party, votes, constituency_seats[party], most_votes, total_votes, threshold, height);
     }
-    chart += '<text x="150" y="295" class="bar-chart-threshold">Threshold: ';
+    chart += '<text x="150" y="' + (height + 95) + '" class="bar-chart-threshold">Threshold: ';
     chart += Math.round(threshold).toLocaleString();
     chart += " (" + percentage(threshold / total_votes) + ")</text>";
     chart += '</g></svg>';
     return chart
 }
 
-function render_bar(index, party, votes, constituency_seats, most_votes, total_votes, threshold) {
+function render_bar(index, party, votes, constituency_seats, most_votes, total_votes, threshold, height) {
     var bar = '';
     for (var i=0; i * threshold <= votes; i++) {
         var class_list = party + " bar-segment";
@@ -372,12 +372,12 @@ function render_bar(index, party, votes, constituency_seats, most_votes, total_v
             class_list += ' insufficient';
         }
         bar += '<rect width="50" x="' + (index * 60 + 5) + '" ';
-        bar += 'height="' + (200 * Math.min(threshold, votes - (i * threshold)) / most_votes) + '" ';
-        bar += 'y="' + (230 - (200 * Math.min((i + 1) * threshold, votes) / most_votes)) + '" ';
+        bar += 'height="' + (height * Math.min(threshold, votes - (i * threshold)) / most_votes) + '" ';
+        bar += 'y="' + (height + 30 - (height * Math.min((i + 1) * threshold, votes) / most_votes)) + '" ';
         bar += 'class="' + class_list + '" />';
     }
-    bar += '<text x="' + (index * 60 + 30) + '" y="250" class="bar-chart-label">' + votes.toLocaleString() + '</text>';
-    bar += '<text x="' + (index * 60 + 30) + '" y="270" class="bar-chart-label">' + percentage(votes / total_votes) + '</text>';
+    bar += '<text x="' + (index * 60 + 30) + '" y="' + (height + 50) + '" class="bar-chart-label">' + votes.toLocaleString() + '</text>';
+    bar += '<text x="' + (index * 60 + 30) + '" y="' + (height + 70) + '" class="bar-chart-label">' + percentage(votes / total_votes) + '</text>';
     return bar;
 }
 
@@ -530,6 +530,21 @@ function set_up() {
             .replace(/REGION_NAME/g, name);
         tabs.appendChild(tab)
     }
+    var chart = render_bar_chart(
+        "2011 North East Scotland",
+        [
+            ["SNP", 140749],
+            ["Labour", 43893],
+            ["Conservative", 37681],
+            ["LibDem", 18178],
+            ["Green", 10407]
+        ],
+        140749 / 11,
+        267045,
+        {"SNP": 10},
+        400
+    );
+    document.getElementById("2011-north-east-scotland-chart").innerHTML = chart;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
