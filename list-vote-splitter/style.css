@@ -46,9 +46,22 @@ svg {
     fill-opacity: 0.3;
 }
 
-.list-votes-chart-label {
+.bar-chart-label {
     font-size:14px;
     text-align:center;
+    text-anchor:middle;
+}
+
+.bar-chart-threshold {
+    font-size: 16px;
+    text-align: center;
+    text-anchor: middle;
+}
+
+.bar-chart-title {
+    font_size: 16px;
+    font-weight: bold;
+    text-align: center;
     text-anchor:middle;
 }
 

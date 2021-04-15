@@ -317,13 +317,6 @@ function update_region(region, snp_constituency_delta, list_split) {
     }
 
     var tbody = document.getElementById(region.name + "-list-votes").children[1];
-    var labels = document.getElementById(region.name + "-list-vote-labels").children;
-    var tab_labels = document.getElementById("tab-" + region.name + "-list-vote-labels").children;
-    var threshold_label = "Threshold: " + Math.round(threshold).toLocaleString();
-    threshold_label += " (" + percentage(threshold / total_list_votes) + ")";
-    labels[10].textContent = threshold_label;
-    tab_labels[10].textContent = threshold_label;
-    var chart = '';
     var sorted_list_votes = sorted(list_votes);
     var most_votes;
     for(var i in sorted_list_votes) {
@@ -333,15 +326,11 @@ function update_region(region, snp_constituency_delta, list_split) {
         if (i == 0) {
             most_votes = votes;
         }
-        chart += render_bar(i, party, votes, constituency_seats_after[party], most_votes, threshold);
         row[0].innerHTML = visual_party(party);
         row[1].textContent = votes.toLocaleString();
-        labels[i * 2].textContent = votes.toLocaleString();
-        tab_labels[i * 2].textContent = votes.toLocaleString();
         row[2].textContent = percentage(votes / total_list_votes);
-        labels[i * 2 + 1].textContent = percentage(votes / total_list_votes);
-        tab_labels[i * 2 + 1].textContent = percentage(votes / total_list_votes);
     }
+    var chart = render_bar_chart('Additional member results', sorted_list_votes, threshold, total_list_votes, constituency_seats_after)
     document.getElementById(region.name + "-chart").innerHTML = chart;
     document.getElementById("tab-" + region.name + "-chart").innerHTML = chart;
 
@@ -353,7 +342,26 @@ function update_region(region, snp_constituency_delta, list_split) {
     return region_seats;
 }
 
-function render_bar(index, party, votes, constituency_seats, most_votes, threshold) {
+function render_bar_chart(title, party_votes, threshold, total_votes, constituency_seats) {
+    var chart = '<svg width="300" height="320"><g>';
+    chart += '<text x="150" y="25" class="bar-chart-title">' + title + '</text>';
+    var most_votes;
+    for(var i in party_votes) {
+        var party = party_votes[i][0];
+        var votes = party_votes[i][1];
+        if (i == 0) {
+            most_votes = votes;
+        }
+        chart += render_bar(i, party, votes, constituency_seats[party], most_votes, total_votes, threshold);
+    }
+    chart += '<text x="150" y="295" class="bar-chart-threshold">Threshold: ';
+    chart += Math.round(threshold).toLocaleString();
+    chart += " (" + percentage(threshold / total_votes) + ")</text>";
+    chart += '</g></svg>';
+    return chart
+}
+
+function render_bar(index, party, votes, constituency_seats, most_votes, total_votes, threshold) {
     var bar = '';
     for (var i=0; i * threshold <= votes; i++) {
         var class_list = party + " bar-segment";
@@ -368,6 +376,8 @@ function render_bar(index, party, votes, constituency_seats, most_votes, thresho
         bar += 'y="' + (230 - (200 * Math.min((i + 1) * threshold, votes) / most_votes)) + '" ';
         bar += 'class="' + class_list + '" />';
     }
+    bar += '<text x="' + (index * 60 + 30) + '" y="250" class="bar-chart-label">' + votes.toLocaleString() + '</text>';
+    bar += '<text x="' + (index * 60 + 30) + '" y="270" class="bar-chart-label">' + percentage(votes / total_votes) + '</text>';
     return bar;
 }
 
@@ -478,21 +488,7 @@ function visual_party(party) {
 
 var REGION_HTML = '<h3>REGION_NAME</h3><p id="REGION_NAME-constituencies"></p>';
 REGION_HTML += 'EXTRA_DETAIL';
-REGION_HTML += '<svg width="300" height="320"><g id="REGION_NAME-chart"></g>';
-REGION_HTML += '<g id="REGION_NAME-list-vote-labels">';
-REGION_HTML += '<text x="30" y="250" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="30" y="270" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="90" y="250" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="90" y="270" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="150" y="250" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="150" y="270" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="210" y="250" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="210" y="270" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="270" y="250" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="270" y="270" class="list-votes-chart-label"></text>';
-REGION_HTML += '<text x="150" y="295" style="font-size:16px;text-align:center;text-anchor:middle;"></text>';
-REGION_HTML += '<text x="150" y="25" style="font-size:16px;font-weight:bold;text-align:center;text-anchor:middle;">Additional member results</text>';
-REGION_HTML += '</g></svg>';
+REGION_HTML += '<div id="REGION_NAME-chart"></div>';
 REGION_HTML += '<p id="REGION_NAME-total-seats"></p>';
 
 var REGION_EXTRA_DETAIL = '<div class="row"><div class="col-sm-7">';
