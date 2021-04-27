@@ -2,159 +2,111 @@
 <html lang="en-us">
 <head>
     <meta charset="utf-8"/>
-    <title>Define question</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tenable</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="./style.css">
     <script src="lzma.js"></script>
-    <script>
-        var lzma = new LZMA("lzma_worker.js");
-
-        document.addEventListener('DOMContentLoaded', function(){
-            document.getElementById("go").onclick = function() {
-                var i;
-                definition = {
-                    "question": document.getElementById("question").value,
-                    "answers": [],
-                    "players": document.getElementById("players").value.split(","),
-                    "attempts": [],
-                };
-                for (i=0; i<10; i++) {
-                    definition["answers"].push(document.getElementById(i + 1).value);
-                }
-                lzma.compress(JSON.stringify(definition), 1, function(compressed, error) {
-                    if (error) {
-                        alert("Failed to compress data: "+error);
-                        return;
-                    }
-
-                    var reader = new FileReader();
-                    reader.onload = function(){
-                        var base64 = reader.result.substr(reader.result.indexOf(",")+1);
-                        console.log("base64: " + base64);
-                        var url = './question.html?#' + base64;
-                        window.location.assign(url);
-                    };
-                    reader.readAsDataURL(new Blob([new Uint8Array(compressed)]));
-                });
-            };
-
-            var base64 = location.hash.substr(1);
-            if (base64.length == 0) {
-                return;
-            }
-
-            if (!fetch) {
-                alert("Your browser does not support this page.  Sorry! :(");
-                return;
-            }
-
-            fetch("data:application/octet-stream;base64,"+base64).then(r => r.blob()).then(function(blob){
-                var reader = new FileReader();
-                reader.onload = function(){
-                    var compressed_data = Array.from(new Uint8Array(reader.result));
-                    lzma.decompress(compressed_data, function(data, error) {
-                        if (error) {
-                            alert("Failed to decompress data: "+error);
-                            return;
-                        }
-
-                        data = JSON.parse(data);
-                        document.getElementById("question").value = data["question"];
-                        for (i=0; i<10; i++) {
-                            document.getElementById(i + 1).value = data["answers"][i];
-                        }
-                    });
-                };
-                reader.readAsArrayBuffer(blob);
-            });
-        });
-
-        function update_url() {
-            var i;
-            var definition = {
-                "question": document.getElementById("question").value,
-                "answers": [],
-                "players": document.getElementById("players").value.split(","),
-                "attempts": [],
-            };
-            for (i=0; i<10; i++) {
-                definition["answers"].push(document.getElementById(i + 1).value);
-            }
-            lzma.compress(JSON.stringify(definition), 1, function(compressed, error) {
-                if (error) {
-                    alert("Failed to compress data: "+error);
-                    return;
-                }
-
-                var reader = new FileReader();
-                reader.onload = function(){
-                    var base64 = reader.result.substr(reader.result.indexOf(",")+1);
-                    var url = '#' + base64;
-                    console.log(url);
-                    window.location.href = url;
-                };
-                reader.readAsDataURL(new Blob([new Uint8Array(compressed)]));
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="container">
-        <div class="col-md-12"><form class="form-horizontal">
-            <div class="form-group">
-                <label for="question" class="col-md-2 control-label">Question</label>
-                <div class="col-md-10"><input oninput="update_url()" type="text" id="question" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="1" class="col-md-2 control-label">1</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="1" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="2" class="col-md-2 control-label">2</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="2" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="3" class="col-md-2 control-label">3</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="3" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="4" class="col-md-2 control-label">4</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="4" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="5" class="col-md-2 control-label">5</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="5" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="6" class="col-md-2 control-label">6</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="6" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="7" class="col-md-2 control-label">7</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="7" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="8" class="col-md-2 control-label">8</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="8" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="9" class="col-md-2 control-label">9</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="9" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="10" class="col-md-2 control-label">10</label>
-                <div class="col-md-9"><input oninput="update_url()" type="text" id="10" class="form-control"></div>
-            </div>
-            <div class="form-group">
-                <label for="players" class="col-md-2 control-label">Players</label>
-                <div class="col-md-10"><input type="text" id="players" class="form-control" placeholder="Comma-separated list of players"><br>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-1 col-md-10">
-                     <input type="submit" id="go" value="Go" class="btn btn-default">
+        <div class="row" id="question-def">
+            <div class="col-md-12"><form class="form-horizontal" onsubmit="return false">
+                <div class="form-group">
+                    <label for="question" class="col-md-2 control-label">Question</label>
+                    <div class="col-md-10"><input oninput="update_question_def()" type="text" id="question" class="form-control"></div>
                 </div>
-            </div>
-        </form></div>
+                <div class="form-group">
+                    <label for="1" class="col-md-2 control-label">1</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="1" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="2" class="col-md-2 control-label">2</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="2" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="3" class="col-md-2 control-label">3</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="3" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="4" class="col-md-2 control-label">4</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="4" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="5" class="col-md-2 control-label">5</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="5" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="6" class="col-md-2 control-label">6</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="6" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="7" class="col-md-2 control-label">7</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="7" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="8" class="col-md-2 control-label">8</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="8" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="9" class="col-md-2 control-label">9</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="9" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="10" class="col-md-2 control-label">10</label>
+                    <div class="col-md-9"><input oninput="update_question_def()" type="text" id="10" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <label for="players" class="col-md-2 control-label">Players</label>
+                    <div class="col-md-10"><input oninput="update_question_def()" type="text" id="players" class="form-control" placeholder="Comma-separated list of players"><br>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-1 col-md-10">
+                         <input type="submit" onclick="start_game()" value="Start game" class="btn btn-default">
+                    </div>
+                </div>
+            </form></div>
+        </div>
     </div>
+    <div class="hidden" id="play">
+        <div class="row"><div class="col-md-12">
+            <h1 class="text-center" id="question-header"></h1>
+            <h1 class="answer-slot text-center" id="answer1">1</h1>
+            <h1 class="answer-slot text-center" id="answer2">2</h1>
+            <h1 class="answer-slot text-center" id="answer3">3</h1>
+            <h1 class="answer-slot text-center" id="answer4">4</h1>
+            <h1 class="answer-slot text-center" id="answer5">5</h1>
+            <h1 class="answer-slot text-center" id="answer6">6</h1>
+            <h1 class="answer-slot text-center" id="answer7">7</h1>
+            <h1 class="answer-slot text-center" id="answer8">8</h1>
+            <h1 class="answer-slot text-center" id="answer9">9</h1>
+            <h1 class="answer-slot text-center" id="answer10">10</h1>
+        </div></div>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table">
+                    <thead><tr><th colspan=2>Scores</th></tr></thead>
+                    <tbody id="scores"></tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <br><br>
+                <form autocomplete="off" onsubmit="return false">
+                    <div class="form-group">
+                        <label for="answer" id="answer-label"></label>
+                        <input type="text" class="form-control" id="answer">
+                        <input type="hidden" id="data">
+                    </div>
+                    <input id="submit-answer" type="submit" class="btn btn-default" onclick="submit_answer()" value="Submit answer">
+                    <a href="#" onclick="go_back()">Go back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <audio src="./maybe.mp3" id="sound-maybe"></audio>
+    <audio src="./wrong.mp3" id="sound-wrong"></audio>
+    <audio src="./correct.mp3" id="sound-correct"></audio>
 </body>
 </html>
