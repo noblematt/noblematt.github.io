@@ -4,6 +4,8 @@ var lzma = new LZMA("lzma_worker.js");
 var game_state = {
     "question": "",
     "answers": [],
+    "clues": [],
+    "contexts": [],
     "players": [],
     "attempts": [],
     "started": false,
@@ -15,6 +17,8 @@ function initialise(data) {
     document.getElementById("question").value = game_state.question;
     for (i=0; i<10; i++) {
         document.getElementById(i + 1).value = game_state.answers[i];
+        document.getElementById("clue" + (i + 1)).value = game_state.clues[i] || "";
+        document.getElementById("context" + (i + 1)).value = game_state.contexts[i] || "";
     }
     document.getElementById("players").value = game_state.players.join(",");
     if (game_state.started) {
@@ -34,7 +38,11 @@ function initialise(data) {
             } else {
                 var element = document.getElementById("answer" + (answer_index + 1));
                 element.textContent = game_state.answers[answer_index];
+                if (game_state.contexts[answer_index]) {
+                    element.textContent += " (" + game_state.contexts[answer_index] + ")";
+                }
                 element.classList.add("filled-answer");
+                game_state.found_answers[answer_index] = true;
                 game_state.scores[player_index] += value;
             }
         }
@@ -49,6 +57,13 @@ function start_game() {
     game_state.started = true;
     game_state.incorrect = [];
     game_state.scores = [];
+    game_state.found_answers = [];
+    for (var i=0; i<10; i++) {
+        game_state.found_answers.push(false);
+        if (game_state.clues[i]) {
+            document.getElementById("answer" + (i + 1)).textContent = game_state.clues[i];
+        }
+    }
     for (var i=0; i<game_state.players.length; i++) {
         game_state.scores.push(0);
     }
@@ -64,8 +79,12 @@ function update_question_def() {
     game_state.question = document.getElementById("question").value;
     game_state.players = document.getElementById("players").value.split(",");
     game_state.answers = [];
+    game_state.clues = [];
+    game_state.contexts = [];
     for (var i=0; i<10; i++) {
         game_state.answers.push(document.getElementById(i + 1).value);
+        game_state.clues.push(document.getElementById("clue" + (i + 1)).value);
+        game_state.contexts.push(document.getElementById("context" + (i + 1)).value);
     }
     update_url();
 }
@@ -123,7 +142,7 @@ function update_url(refresh) {
 function tower_complete(n) {
     var i;
     for (i=0; i<n; i++) {
-        if (document.getElementById("answer" + (i + 1)).textContent == (i + 1)) {
+        if (!game_state.found_answers[i]) {
             return false;
         }
     }
@@ -148,8 +167,12 @@ async function submit_answer() {
     if (game_state.game_over) {
         var i;
         for (i=10; i>0; i--) {
-            if (document.getElementById("answer" + i).textContent == i) {
+            if (!game_state.found_answers[i - 1]) {
+                game_state.found_answers[i - 1] = true;
                 document.getElementById("answer" + i).textContent = game_state.answers[i - 1];
+                if (game_state.contexts[i - 1]) {
+                    document.getElementById("answer" + i).textContent += " (" + game_state.contexts[i - 1] + ")";
+                }
                 return;
             }
         }
@@ -211,7 +234,11 @@ async function provide_answer(answer) {
     } else {
         var element = document.getElementById("answer" + (answer_index + 1));
         element.textContent = game_state.answers[answer_index];
+        if (game_state.contexts[answer_index]) {
+            element.textContent += " (" + game_state.contexts[answer_index] + ")";
+        }
         element.classList.add("filled-answer");
+        game_state.found_answers[answer_index] = true;
         game_state.scores[player_index] += value;
     }
 }
