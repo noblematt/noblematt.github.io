@@ -1,5 +1,5 @@
 
-var lzma = new LZMA("lzma_worker.js");
+var lzma = new LZMA("/lib/lzma_worker.js");
 
 var game_state = {
     "question": "",
