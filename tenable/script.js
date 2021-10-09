@@ -72,6 +72,7 @@ function start_game() {
     document.getElementById("play").classList.remove("hidden");
     document.getElementById("answer").focus();
     initialise_scores_table();
+    update_scores_table();
     update_url();
 }
 
