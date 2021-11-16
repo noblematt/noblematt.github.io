@@ -3188,7 +3188,7 @@
     function start_animation() {
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".na", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".tg", "fill:#FFCC00");},
             500
         );
 
@@ -3203,13 +3203,8 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".tg", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".na", "fill:#FFCC00");},
             500
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".ne", "fill:#FFCC00");},
-            1000
         );
 
         window.setTimeout(
@@ -3218,28 +3213,13 @@
         );
 
         window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ne", "fill:#FFCC00");},
+            1000
+        );
+
+        window.setTimeout(
             function() {document.styleSheets[0].addRule(".dk", "fill:#0000FF");},
             1500
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".nireland", "fill:#FFCC00");},
-            2000
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".si", "fill:#FFCC00");},
-            2000
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".bg", "fill:#FFCC00");},
-            2000
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".gn", "fill:#FFCC00");},
-            2000
         );
 
         window.setTimeout(
@@ -3253,12 +3233,27 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".mg", "fill:#FFCC00");},
-            2500
+            function() {document.styleSheets[0].addRule(".bg", "fill:#FFCC00");},
+            2000
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".gr", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".si", "fill:#FFCC00");},
+            2000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".nireland", "fill:#FFCC00");},
+            2000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".gn", "fill:#FFCC00");},
+            2000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".mg", "fill:#FFCC00");},
             2500
         );
 
@@ -3268,12 +3263,17 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".ug", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".is", "fill:#FFCC00");},
             2500
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".is", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".gr", "fill:#FFCC00");},
+            2500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ug", "fill:#FFCC00");},
             2500
         );
 
@@ -3288,22 +3288,22 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".al", "fill:#FFCC00");},
-            4000
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".hu", "fill:#FFCC00");},
-            4000
-        );
-
-        window.setTimeout(
             function() {document.styleSheets[0].addRule(".ga", "fill:#FFCC00");},
             4000
         );
 
         window.setTimeout(
+            function() {document.styleSheets[0].addRule(".al", "fill:#FFCC00");},
+            4000
+        );
+
+        window.setTimeout(
             function() {document.styleSheets[0].addRule(".il", "fill:#FFCC00");},
+            4000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".hu", "fill:#FFCC00");},
             4000
         );
 
@@ -3323,12 +3323,12 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".be", "fill:#0000FF");},
+            function() {document.styleSheets[0].addRule(".fr", "fill:#0000FF");},
             6000
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".fr", "fill:#0000FF");},
+            function() {document.styleSheets[0].addRule(".be", "fill:#0000FF");},
             6000
         );
 
@@ -3343,12 +3343,12 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".am", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".ro", "fill:#FFCC00");},
             7500
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".ro", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".am", "fill:#FFCC00");},
             7500
         );
 
@@ -3358,24 +3358,34 @@
         );
 
         window.setTimeout(
+            function() {document.styleSheets[0].addRule(".es", "fill:#0000FF");},
+            8500
+        );
+
+        window.setTimeout(
             function() {document.styleSheets[0].addRule(".rs", "fill:#0000FF");},
             8500
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".es", "fill:#0000FF");},
-            8500
+            function() {document.styleSheets[0].addRule(".ch", "fill:#0000FF");},
+            9000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".england", "fill:#0000FF");},
+            9000
         );
 
 
         window.setTimeout(
             function() {
-                for(var i=0; i<36; i++) {
+                for(var i=0; i<38; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            11000
+            11500
         );
 
     }
