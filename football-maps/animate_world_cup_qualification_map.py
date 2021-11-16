@@ -77,6 +77,7 @@ SCRIPT_FOOTER = '''
 NAME_TRANSFORMS = {
     'kosovo': 'xk',
     'northernireland': 'nireland',
+    'england': 'gb',
 }
 
 def main():

@@ -3188,12 +3188,12 @@
     function start_animation() {
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".tg", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".na", "fill:#FFCC00");},
             500
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".cg", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".tg", "fill:#FFCC00");},
             500
         );
 
@@ -3203,7 +3203,7 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".na", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".cg", "fill:#FFCC00");},
             500
         );
 
@@ -3223,7 +3223,12 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".gw", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".si", "fill:#FFCC00");},
+            2000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".nireland", "fill:#FFCC00");},
             2000
         );
 
@@ -3238,12 +3243,7 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".si", "fill:#FFCC00");},
-            2000
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".nireland", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".gw", "fill:#FFCC00");},
             2000
         );
 
@@ -3253,12 +3253,17 @@
         );
 
         window.setTimeout(
+            function() {document.styleSheets[0].addRule(".tz", "fill:#FFCC00");},
+            2500
+        );
+
+        window.setTimeout(
             function() {document.styleSheets[0].addRule(".mg", "fill:#FFCC00");},
             2500
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".tz", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".ug", "fill:#FFCC00");},
             2500
         );
 
@@ -3269,11 +3274,6 @@
 
         window.setTimeout(
             function() {document.styleSheets[0].addRule(".gr", "fill:#FFCC00");},
-            2500
-        );
-
-        window.setTimeout(
-            function() {document.styleSheets[0].addRule(".ug", "fill:#FFCC00");},
             2500
         );
 
@@ -3293,17 +3293,17 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".al", "fill:#FFCC00");},
-            4000
-        );
-
-        window.setTimeout(
             function() {document.styleSheets[0].addRule(".il", "fill:#FFCC00");},
             4000
         );
 
         window.setTimeout(
             function() {document.styleSheets[0].addRule(".hu", "fill:#FFCC00");},
+            4000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".al", "fill:#FFCC00");},
             4000
         );
 
@@ -3368,12 +3368,12 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".ch", "fill:#0000FF");},
+            function() {document.styleSheets[0].addRule(".gb", "fill:#0000FF");},
             9000
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".england", "fill:#0000FF");},
+            function() {document.styleSheets[0].addRule(".ch", "fill:#0000FF");},
             9000
         );
 
