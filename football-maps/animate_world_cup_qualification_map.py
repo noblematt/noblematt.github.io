@@ -147,7 +147,7 @@ def build_animated_svg(url, states, headers):
         for key in old.keys():
 
             # new - old to find the countries which have newly qualified/been eliminated
-            for country in new.__getitem__(key) - old.__getitem__(key):
+            for country in sorted(new[key] - old[key]):
                 document += script.replace('COUNTRY', country).replace('COLOUR', COLOUR_CODES[key])
                 n_rules += 1
 
