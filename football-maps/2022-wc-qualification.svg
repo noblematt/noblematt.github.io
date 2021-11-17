@@ -3417,15 +3417,20 @@
             10500
         );
 
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ar", "fill:#0000FF");},
+            11000
+        );
+
 
         window.setTimeout(
             function() {
-                for(var i=0; i<46; i++) {
+                for(var i=0; i<47; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            13000
+            13500
         );
 
     }
