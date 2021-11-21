@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="Scotland World Cup Playoff Sweep">
+    <meta property="og:url" content="https://noblematt.github.io/wc-playoff-draw/" />
+    <meta property="og:description" content="Tool for drawing world cup sweeps for Scotland's playoff draw">
+    <meta property="og:image" content="/wc-playoff-draw/scotland.svg">
+    <meta property="og:type" content="article" />
+    <link rel="shortcut icon" type="image/svg" href="/wc-playoff-draw/scotland.svg"/>
+    <title>Scotland World Cup Playoff Sweep</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/lib/lzma.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <div id="explanation" class="col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                <h1>Scotland World Cup Playoff Sweep</h1>
+                <p>
+                    This tool makes it easy to run a sweep for Scotland's World
+                    Cup playoff draw. This is a great way to get your
+                    colleagues/friends/family excited about Scotland's path to
+                    World Cup qualification, and to raise money for charity -
+                    such as the
+                    <a href="http://www.tasunshineappeal.scot/" target="_blank">
+                    Tartan Army Sunshine Appeal</a>.
+                </p>
+                <p>
+                    You can run a sweep with various different numbers of
+                    entrants, with the variables used in the sweep dependent on
+                    the number of entrants you have. See below for more
+                    information on how this works.
+                </p>
+                <p>
+                    To draw a sweep, simply enter the names of the
+                    entrants into the box below, with commas in between, and
+                    click the button.
+                </p>
+
+                <form class="form-horizontal" onsubmit="return false">
+                    <div class="form-group">
+                        <label for="entrants" class="col-md-1 control-label">Entrants</label>
+                        <div class="col-md-12"><input type="text" id="entrants" class="form-control"></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10">
+                             <input type="submit" onclick="draw_sweep()" value="Draw Sweep" class="btn btn-default">
+                        </div>
+                    </div>
+                </form>
+
+                <h3><em>How does the sweep work?</em></h3>
+                <p>
+                    At the draw on Friday, we will find out four pieces of
+                    information about Scotland's path to qualify for the 2022
+                    World Cup:
+                </p>
+                <ul>
+                    <li>Who will we play in the semi-final? <em>(6 possibilities)</em></li>
+                    <li>Which seeded team will be in the other semi-final in our path? <em>(5 possibilities)</em></li>
+                    <li>Which unseeded team will be in the other semi-final in our path? <em>(5 possibilities)</em></li>
+                    <li>Will we play at home or away in the final, if we get there? <em>(2 possibilities)</em></li>
+                </ul>
+                <p>
+                    Depending on how many people enter your sweep, different
+                    combinations of these variables can be used to produce a
+                    sweep with the right number of possible outcomes, as per the
+                    table below:
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Number of entrants</th>
+                            <th>Semi-final opponents</th>
+                            <th>Seeded team in other semi</th>
+                            <th>Unseeded team in other semi</th>
+                            <th>Home/away in final</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>5</strong></td>
+                            <td></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>6</strong></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>10</strong></td>
+                            <td></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>12</strong></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>29</strong></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>58</strong></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>140</strong></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>280</strong></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                            <td><span class="glyphicon glyphicon-ok"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3><em>What if the number of entrants doesn't match any of these?</em></h3>
+                <p>
+                    You can run a sweep with any number of entrants up to 280.
+                    If the number doesn't match any of those in the table above,
+                    it just means that it's possible nobody will win. If you're
+                    comfortable with that and your entrants are happy, you can
+                    go ahead with any number of entrants. You might want to
+                    donate all the prize money to charity if nobody wins.
+                </p>
+
+                <h3><em>Why are the numbers 29 and 140 instead of 30 and 150?</em></h3>
+                <p>
+                    If you have a keen eye for combinatorics, you might notice
+                    that there should be 30 possibilities for our semi-final
+                    opponents and other seeded team. Likewise the number of
+                    possibilities for our full path should be 150. However for
+                    political reasons, FIFA will not allow Russia and Ukraine
+                    to be drawn into the same path. This reduces the number of
+                    possibilities to 29 and 140, respectively.
+                </p>
+            </div>
+            <div id="draw" class="hidden col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                <h1>Scotland World Cup Playoff Sweep</h1>
+                <p>
+                    The results of the draw for the sweep are below. You should
+                    take a copy of this URL as it encodes the result of this
+                    draw. You can share it with your friends to let them see who
+                    they have got.
+                </p>
+                <table id="draw-result" class="table"></table>
+            </div>
+            <div id="no-winner" class="hidden col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                <h3>No winner</h1>
+                <p>
+                    If any of these possibilites come up, nobody will win this
+                    sweep:
+                </p>
+                <table id="no-winner-table" class="table"></table>
+            </div>
+        </div>
+    </div>
+</body>
