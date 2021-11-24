@@ -101,10 +101,14 @@ function update_url(draw_result) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-
+function url_reload() {
     var base64 = location.hash.substr(1);
     if (base64.length == 0) {
+        document.getElementById("draw-result").innerHTML = '';
+        document.getElementById("draw").classList.add("hidden");
+        document.getElementById("explanation").classList.remove("hidden");
+        document.getElementById("no-winner-table").innerHTML = '';
+        document.getElementById("no-winner").classList.add("hidden");
         return;
     }
 
@@ -129,18 +133,10 @@ document.addEventListener('DOMContentLoaded', function(){
         };
         reader.readAsArrayBuffer(blob);
     });
-});
+}
 
-window.addEventListener("hashchange", function() {
-    var base64 = location.hash.substr(1);
-    if (base64.length == 0) {
-        document.getElementById("draw-result").innerHTML = '';
-        document.getElementById("draw").classList.add("hidden");
-        document.getElementById("explanation").classList.remove("hidden");
-        document.getElementById("no-winner-table").innerHTML = '';
-        document.getElementById("no-winner").classList.add("hidden");
-    }
-});
+document.addEventListener('DOMContentLoaded', url_reload);
+window.addEventListener("hashchange", url_reload);
 
 /*
  * Lists of possibilities: this could be generated dynamically, but javascript
