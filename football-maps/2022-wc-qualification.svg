@@ -3422,15 +3422,25 @@
             11000
         );
 
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".vn", "fill:#FFCC00");},
+            11500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ir", "fill:#0000FF");},
+            12000
+        );
+
 
         window.setTimeout(
             function() {
-                for(var i=0; i<47; i++) {
+                for(var i=0; i<49; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            13500
+            14500
         );
 
     }
