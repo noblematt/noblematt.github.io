@@ -3423,29 +3423,44 @@
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".vn", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".as", "fill:#000000");},
             11500
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".ir", "fill:#0000FF");},
+            function() {document.styleSheets[0].addRule(".ws", "fill:#000000");},
+            11500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".vn", "fill:#FFCC00");},
             12000
         );
 
         window.setTimeout(
-            function() {document.styleSheets[0].addRule(".hn", "fill:#FFCC00");},
+            function() {document.styleSheets[0].addRule(".ir", "fill:#0000FF");},
             12500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".to", "fill:#000000");},
+            13000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".hn", "fill:#FFCC00");},
+            13500
         );
 
 
         window.setTimeout(
             function() {
-                for(var i=0; i<50; i++) {
+                for(var i=0; i<53; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            15000
+            16000
         );
 
     }
