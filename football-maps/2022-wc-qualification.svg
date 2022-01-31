@@ -3432,15 +3432,20 @@
             12000
         );
 
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".hn", "fill:#FFCC00");},
+            12500
+        );
+
 
         window.setTimeout(
             function() {
-                for(var i=0; i<49; i++) {
+                for(var i=0; i<50; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            14500
+            15000
         );
 
     }
