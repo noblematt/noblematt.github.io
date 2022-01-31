@@ -26,6 +26,7 @@ FILE_URL = (
 COLOUR_CODES = {
     'eliminated': '#FFCC00',
     'qualified': '#0000FF',
+    'withdrew': '#000000',
 }
 NOT_YET_QUALIFIED_COLOUR = '#2FC0FF'
 
@@ -87,7 +88,7 @@ def main():
     version_urls = retrieve_version_urls(headers)
 
     states = [
-        extract_qualified_eliminated(url, headers)
+        extract_states(url, headers)
         for url in version_urls
     ]
 
@@ -184,29 +185,25 @@ def remove_mistakes_and_duplicates(states):
             del[states[i]]
         i -= 1
 
-def extract_qualified_eliminated(url, headers):
+def extract_states(url, headers):
     '''
-        Extract the sets of countries qualified and eliminated from the image
-        at the given URL
+        Extract the states of countries from the image at the given URL
     '''
     response = requests.get(url, headers=headers)
     style = bs4.BeautifulSoup(response.text, features='html.parser').find('style').text
     return {
-        key: get_countries(style, colour)
-        for key, colour in COLOUR_CODES.items()
+        key: get_countries(style, key)
+        for key in COLOUR_CODES
     }
 
-def get_countries(style, colour):
+def get_countries(style, name):
     '''
-        Extract the set of countries in the selector for the rule which contains
-        the given colour
-        Note that this picks only the first such rule; we assume that all the
-        countries will continue to be listed in a single rule
+        Extract the set of countries in the selector which follows the given name
     '''
-    index = style.index(colour)
+    index = style.lower().index('* ' + name)
 
     while style[index] != '{':
-        index -= 1
+        index += 1
     end = index
 
     while style[index] not in '}/':
