@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:title" content="AoC Leaderboard">
+    <meta property="og:url" content="https://noblematt.github.io/advent-of-code/" />
+    <meta property="og:description" content="Detailed Advent of Code Leaderboard" />
+    <meta property="og:image" content="/advent-of-code/aoc.png" />
+    <meta property="og:type" content="article" />
+    <link rel="shortcut icon" type="image/png" href="/advent-of-code/aoc.png" />
+    <title>Advent of Code Leaderboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/lib/lzma.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="container" id="main">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <h1>AoC Leaderboard</h1>
+                <p>
+                    Use this tool to see how you (or any user) have moved up
+                    and down the leaderboard over the duration of Advent of
+                    Code. Simply select the username from the list, and start
+                    exploring the data.
+                </p>
+            </div>
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <form>
+                    <div class="form-group" id="selectors">
+                        <label for="username-selector" id="username-label">Username</label>
+                        <select multiple class="form-control" id="username-selector" oninput="update()">
+                        </select>
+                        <label for="target-range" id="target-label">Target position: 1</label>
+                        <input type="range" id="target-range" name="target-range" min="1" max="100" step="1" value=1 oninput="update()">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <p id="user-points-label"></p>
+                <p id="target-points-label"></p>
+                <svg width="1000" height="800"><g id="points-graph">
+                </g></svg>
+            </div>
+        </div>
+    </div>
+</body>
