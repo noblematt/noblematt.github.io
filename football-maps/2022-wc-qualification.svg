@@ -3452,15 +3452,50 @@
             13500
         );
 
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".cn", "fill:#FFCC00");},
+            14000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".sy", "fill:#FFCC00");},
+            14500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".kr", "fill:#0000FF");},
+            14500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".om", "fill:#FFCC00");},
+            15000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ve", "fill:#FFCC00");},
+            15500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".py", "fill:#FFCC00");},
+            16000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".jm", "fill:#FFCC00");},
+            16500
+        );
+
 
         window.setTimeout(
             function() {
-                for(var i=0; i<53; i++) {
+                for(var i=0; i<60; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            16000
+            19000
         );
 
     }
