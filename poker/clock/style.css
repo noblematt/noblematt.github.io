@@ -1,0 +1,36 @@
+body { padding: 50px; }
+
+.btn { margin-bottom: 10px; }
+
+.clock {
+    font-size: 8em;
+}
+
+.blinds {
+    font-size: 6em;
+}
+
+.blinds, .info {
+    width: 100%;
+}
+
+.info {
+    font-size: 1.5em;
+    padding: 10px;
+}
+.info span {
+    font-size: 2em;
+}
+
+.element-center {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.info-row {
+    height: 50vh;
+}
+
+.clock-row {
+    margin-bottom: 30px;

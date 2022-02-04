@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Poker Tournament Clock</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        <link rel="stylesheet" href="./style.css">
+        <script src="/lib/lzma.js"></script>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div id="setup-container" class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1>Poker Tournament Clock</h1>
+                    <form>
+                        <div class="form-group">
+                            <label for="starting-stack-input">Starting stack</label>
+                            <input type="text" oninput="update_chip_count()" class="form-control" id="starting-stack-input" value="500" />
+                        </div>
+                        <div class="form-group">
+                            <label for="blinds-input">Blinds</label>
+                            <textarea class="form-control" id="blinds-input" rows="6"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="buy-in-input">Buy-in</label>
+                            <input type="text" oninput="update_prize_pool()" class="form-control" id="buy-in-input" value="5" />
+                        </div>
+                    </form>
+
+                    <form onsubmit="return false">
+                        <div class="form-group">
+                            <label for="player-name-input">Add Player</label>
+                            <input type="text" class="form-control" id="player-name-input" />
+                        </div>
+                        <input type="submit" value="Add" class="btn btn-default" onclick="add_player()" />
+                    </form>
+
+                    <p><strong>Number of players: <span id="player-count-label">0</span></strong></p>
+                    <p><strong>Prize pool: £<span id="prize-pool-label">0</span></strong></p>
+                    <p>Players:</p>
+                    <ul id="player-list"></ul>
+
+                    <form onsubmit="return false">
+                        <button id="start-game-btn" class="btn btn-default" disabled="true" onclick="start_game()">
+                            Start Game
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div id="clock-container" class="container hidden">
+            <div class="row clock-row">
+                <div class="col-md-2"><img src="aufc.webp"></div>
+                <div class="col-md-8">
+                    <p class="text-center clock"><strong>
+                        <span id="minutes-label"></span> : <span id="seconds-label"></span>
+                    </strong></p>
+                </div>
+                <div class="col-md-2"><img src="aufc.webp"></div>
+            </div>
+            <div class="row element-center info-row">
+                <div class="col-md-4">
+                    <p class="text-center blinds">
+                        <span id="current-blinds-label"></span>
+                    </p>
+                </div>
+                <div class="col-md-8">
+                    <div class="row element-center">
+                        <div class="col-md-6">
+                            <p class="text-center info">
+                                <em>Next blinds</em><br />
+                                <span id="next-blinds-label"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-center info">
+                                <em>Players remaining</em><br />
+                                <span id="players-remaining-label"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row element-center">
+                        <div class="col-md-6">
+                            <p class="text-center info">
+                                <em>Average stack</em><br />
+                                <span id="average-stack-label"></span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-center info">
+                                <em>Prizes</em><br />
+                                <span id="prizes-label"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
