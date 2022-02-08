@@ -18,15 +18,15 @@
                     <form>
                         <div class="form-group">
                             <label for="starting-stack-input">Starting stack</label>
-                            <input type="text" oninput="read_starting_stack()" class="form-control" id="starting-stack-input" value="500" />
+                            <input type="number" oninput="read_starting_stack()" class="form-control" id="starting-stack-input" value="500" />
                         </div>
                         <div class="form-group">
                             <label for="blinds-input">Blinds</label>
-                            <textarea class="form-control" id="blinds-input" rows="6"></textarea>
+                            <textarea oninput="read_blinds()" class="form-control" id="blinds-input" rows="6"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="buy-in-input">Buy-in</label>
-                            <input type="text" oninput="read_buy_in()" class="form-control" id="buy-in-input" value="5" />
+                            <input type="number" oninput="read_buy_in()" class="form-control" id="buy-in-input" value="5" />
                         </div>
                     </form>
 

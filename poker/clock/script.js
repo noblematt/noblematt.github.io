@@ -35,6 +35,11 @@ function read_starting_stack() {
     recalculate_chip_count();
 }
 
+function read_blinds() {
+    game_state.blinds = document.getElementById("blinds-input").value;
+    update();
+}
+
 function recalculate_prize_pool() {
     game_state.prize_pool = game_state.buy_in * game_state.n_buy_ins;
     update();
@@ -67,7 +72,8 @@ function add_player(name) {
 }
 
 function start_game() {
-    game_state.levels = build_blinds();
+    game_state.levels = build_blinds(game_state.blinds);
+    delete game_state.blinds;
     game_state.level = -1;
     game_state.minutes = 0;
     game_state.seconds = 0;
@@ -79,8 +85,8 @@ function start_game() {
     tick();
 }
 
-function build_blinds() {
-    var level_definitions = document.getElementById("blinds-input").value.split(';');
+function build_blinds(blinds_definition) {
+    var level_definitions = blinds_definition.split(';');
     var level_time = 0;
     levels = [];
     for (var i in level_definitions) {
@@ -229,6 +235,7 @@ function initialise() {
         // If no data is provided, we should initialise these from the form inputs
         read_buy_in();
         read_starting_stack();
+        read_blinds();
         return;
     }
 
@@ -269,6 +276,7 @@ function restore_state(data) {
     } else {
         document.getElementById("buy-in-input").value = game_state.buy_in;
         document.getElementById("starting-stack-input").value = game_state.starting_stack;
+        document.getElementById("blinds-input").value = game_state.blinds;
     }
 }
 
