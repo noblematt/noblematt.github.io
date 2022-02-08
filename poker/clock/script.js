@@ -1,6 +1,15 @@
 
 var lzma = new LZMA("/lib/lzma_worker.js");
 
+const PRIZE_DISTS = [
+    [1, [100]],
+    [5, [70, 30]],
+    [11, [50, 30, 20]],
+    [21, [37, 25, 15, 12, 11]],
+    [31, [35, 22, 15, 11, 9, 8]],
+    [41, [32, 18, 12.5, 10.5, 8.3, 7.3, 6.2, 5.2]]
+];
+
 DEFAULT_BLINDS = `
 30: 5 / 5; 5 / 10;
 20: 10 / 15; 10 / 20; 15 / 25;
@@ -12,25 +21,32 @@ DEFAULT_BLINDS = `
 
 game_state = {
     "players": [],
-    "players_remaining": 0
+    "players_remaining": 0,
+    "n_buy_ins": 0
 }
 
-function update_prize_pool() {
+function read_buy_in() {
     game_state.buy_in = document.getElementById("buy-in-input").value;
-    game_state.prize_pool = game_state.buy_in * game_state.players.length;
-    document.getElementById("prize-pool-label").innerHTML = game_state.prize_pool;
-    update_prizes_label();
-    update_url();
+    recalculate_prize_pool();
 }
 
-function update_chip_count() {
+function read_starting_stack() {
     game_state.starting_stack = document.getElementById("starting-stack-input").value;
-    game_state.chip_count = game_state.starting_stack * game_state.players.length;
-    update_average_stack_label();
-    update_url();
+    recalculate_chip_count();
+}
+
+function recalculate_prize_pool() {
+    game_state.prize_pool = game_state.buy_in * game_state.n_buy_ins;
+    update();
+}
+
+function recalculate_chip_count() {
+    game_state.chip_count = game_state.starting_stack * game_state.n_buy_ins;
+    update();
 }
 
 function add_player(name) {
+    // If no name is provided, retrieve from form input
     if (!name) {
         var input = document.getElementById("player-name-input");
         name = input.value;
@@ -41,17 +57,13 @@ function add_player(name) {
         alert("No name provided; not adding new player");
         return;
     }
+
     game_state.players.push(name);
-    game_state.players_remaining += 1;
-    update_chip_count();
-    update_prize_pool();
-    document.getElementById("player-list").innerHTML += "<li>" + name + "</li>";
-    document.getElementById("player-count-label").innerHTML = game_state.players.length;
-    if (game_state.players.length > 1) {
-        document.getElementById("start-game-btn").disabled = false;
-    }
-    update_players_remaining_label();
-    update_url();
+    game_state.players_remaining++;
+    game_state.n_buy_ins++;
+    recalculate_chip_count();
+    recalculate_prize_pool();
+    update();
 }
 
 function start_game() {
@@ -61,9 +73,6 @@ function start_game() {
     game_state.seconds = 0;
     game_state.started = true;
     game_state.running = true;
-
-    update_players_remaining_label();
-    update_average_stack_label();
 
     document.getElementById("setup-container").classList.add("hidden");
     document.getElementById("clock-container").classList.remove("hidden");
@@ -92,38 +101,60 @@ function tick() {
     }
     window.setTimeout(tick, 1000);
     if (game_state.seconds) {
-        game_state.seconds -= 1;
+        game_state.seconds--;
     } else if (game_state.minutes) {
-            game_state.minutes -= 1;
+            game_state.minutes--;
             game_state.seconds = 59;
     } else {
-        game_state.level += 1;
+        game_state.level++;
         if (game_state.level == game_state.levels.length) {
-            game_state.level -= 1;
+            game_state.level--;
         }
         game_state.minutes = game_state.levels[game_state.level][0]
-        update_blinds_labels();
     }
-    update_clock_labels();
-    update_url();
+    update();
 }
 
 function eliminate_player() {
-    game_state.players_remaining -= 1;
-    update_players_remaining_label();
-    update_average_stack_label();
-    update_url();
+    game_state.players_remaining--;
+    update();
 }
 
 function pause() {
     game_state.running = false;
-    update_url();
+    update();
 }
 
 function unpause() {
     game_state.running = true;
     window.setTimeout(tick, 1000);
+    update();
+}
+
+function update() {
+    if (game_state.started) {
+        update_players_remaining_label();
+        update_average_stack_label();
+        update_clock_labels();
+        update_blinds_labels();
+        update_prizes_label();
+    } else {
+        update_players_entered_labels();
+        update_prize_pool_label();
+    }
     update_url();
+}
+
+function update_players_entered_labels() {
+    var html = '';
+    for (var i in game_state.players) {
+        html += '<li>' + game_state.players[i] + '</li>';
+    }
+    document.getElementById("player-list").innerHTML = html;
+    document.getElementById("player-count-label").innerHTML = game_state.players.length;
+    if (game_state.players.length > 1) {
+        document.getElementById("start-game-btn").disabled = false;
+    }
 }
 
 function update_players_remaining_label() {
@@ -148,14 +179,9 @@ function update_blinds_labels() {
     document.getElementById("next-blinds-label").innerHTML = game_state.levels[next_level][1];
 }
 
-PRIZE_DISTS = [
-    [1, [100]],
-    [5, [70, 30]],
-    [11, [50, 30, 20]],
-    [21, [37, 25, 15, 12, 11]],
-    [31, [35, 22, 15, 11, 9, 8]],
-    [41, [32, 18, 12.5, 10.5, 8.3, 7.3, 6.2, 5.2]]
-];
+function update_prize_pool_label() {
+    document.getElementById("prize-pool-label").innerHTML = game_state.prize_pool;
+}
 
 function update_prizes_label() {
     var prize_pool = game_state.prize_pool;
@@ -169,7 +195,6 @@ function update_prizes_label() {
     var pool_remaining = prize_pool;
     var prizes = [];
     for (var i = dist.length - 1; i>=0; i--) {
-        console.log(i, dist, dist.length);
         var value = Math.round(dist[i] * prize_pool / 100);
         if (i == 0) {
             value = pool_remaining;
@@ -185,7 +210,6 @@ function update_prizes_label() {
         }
         label += "£" + prize;
     }
-    console.log(dist, prizes, label);
     document.getElementById("prizes-label").innerHTML = label;
 }
 
@@ -202,6 +226,9 @@ function initialise() {
 
     var encoded_data = location.hash.substr(1);
     if (encoded_data.length == 0) {
+        // If no data is provided, we should initialise these from the form inputs
+        read_buy_in();
+        read_starting_stack();
         return;
     }
 
@@ -232,34 +259,16 @@ function restore_state(data) {
     for (var key in data) {
         game_state[key] = data[key];
     }
-    if (game_state.buy_in) {
-        document.getElementById('buy-in-input').value = game_state.buy_in;
-    }
-    if (game_state.starting_stack) {
-        document.getElementById('starting-stack-input').value = game_state.starting_stack;
-    }
-    update_prize_pool();
-    update_chip_count();
-    var player_list = document.getElementById("player-list");
-    for (var i in game_state.players) {
-        player_list.innerHTML += "<li>" + game_state.players[i] + "</li>";
-    }
-    document.getElementById("player-count-label").innerHTML = game_state.players.length;
-    if (game_state.players.length > 1) {
-        document.getElementById("start-game-btn").disabled = false;
-    }
+    update();
     if (game_state.started) {
-        update_players_remaining_label();
-        update_average_stack_label();
-        update_blinds_labels();
-        update_prizes_label();
-        update_clock_labels();
-
         document.getElementById("setup-container").classList.add("hidden");
         document.getElementById("clock-container").classList.remove("hidden");
         if (game_state.running) {
             tick();
         }
+    } else {
+        document.getElementById("buy-in-input").value = game_state.buy_in;
+        document.getElementById("starting-stack-input").value = game_state.starting_stack;
     }
 }
 
