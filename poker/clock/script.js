@@ -108,6 +108,13 @@ function tick() {
     window.setTimeout(tick, 1000);
     if (game_state.seconds) {
         game_state.seconds--;
+        if (game_state.seconds < 10 && !game_state.minutes) {
+            if (game_state.seconds % 2) {
+                document.body.style.backgroundColor = 'red';
+            } else {
+                document.body.style.backgroundColor = 'white';
+            }
+        }
     } else if (game_state.minutes) {
             game_state.minutes--;
             game_state.seconds = 59;
