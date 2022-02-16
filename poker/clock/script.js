@@ -10,7 +10,7 @@ const PRIZE_DISTS = [
     [41, [32, 18, 12.5, 10.5, 8.3, 7.3, 6.2, 5.2]]
 ];
 
-DEFAULT_BLINDS = `
+const DEFAULT_BLINDS = `
 30: 5 / 5; 5 / 10; 10: break;
 20: 10 / 15; 10 / 20; 15 / 25; 10: break;
 15: 15 / 30; 20 / 40; 25 / 50; 30 / 60; 10: break;
@@ -19,7 +19,9 @@ DEFAULT_BLINDS = `
 10: 600 / 1200; 800 / 1600; 1000 / 2000; 1200 / 2400; 1500 / 3000; 2000 / 4000;
 `.trim()
 
-game_state = {
+const SEATING_CHART_COL_WIDTHS = [12, 6, 4, 6, 4, 4];
+
+const game_state = {
     "players": [],
     "players_remaining": 0,
     "n_buy_ins": 0
@@ -37,6 +39,11 @@ function read_starting_stack() {
 
 function read_blinds() {
     game_state.blinds = document.getElementById("blinds-input").value;
+    update();
+}
+
+function read_players_per_table() {
+    game_state.players_per_table = document.getElementById("players-per-table-input").value;
     update();
 }
 
@@ -71,6 +78,31 @@ function add_player(name) {
     update();
 }
 
+function assign_seats() {
+    var n_tables = Math.ceil(game_state.players.length / game_state.players_per_table);
+    var players = [...game_state.players];
+    var tables = [];
+    for (var i=0; i<n_tables; i++) {
+        tables.push([[], []]);
+        for (var j=0; j<game_state.players_per_table; j++) {
+            tables[i][0].push(j);
+        }
+    }
+    var i = 0;
+    while (players.length) {
+        var seat_index = Math.floor(Math.random() * tables[i][0].length);
+        var player_index = Math.floor(Math.random() * players.length);
+        var seat_number = tables[i][0].splice(seat_index, 1)[0];
+        var player = players.splice(player_index, 1)[0];
+        tables[i][1][seat_number] = player;
+        i = (i + 1) % n_tables;
+    }
+    game_state.seating = tables;
+    document.getElementById("setup-container").classList.add("hidden");
+    document.getElementById("seating-container").classList.remove("hidden");
+    update();
+}
+
 function start_game() {
     game_state.levels = build_blinds(game_state.blinds);
     delete game_state.blinds;
@@ -80,7 +112,7 @@ function start_game() {
     game_state.started = true;
     game_state.running = true;
 
-    document.getElementById("setup-container").classList.add("hidden");
+    document.getElementById("seating-container").classList.add("hidden");
     document.getElementById("clock-container").classList.remove("hidden");
     tick();
 }
@@ -154,12 +186,30 @@ function update() {
         update_clock_labels();
         update_blinds_labels();
         update_prizes_label();
+    } else if (game_state.seating) {
+        update_seating_chart();
     } else {
         update_players_entered_labels();
         update_prize_pool_label();
     }
     update_url();
 }
+
+function update_seating_chart() {
+    var html = '';
+    var col_width = SEATING_CHART_COL_WIDTHS[game_state.seating.length - 1] || 3;
+    for (var i=0; i<game_state.seating.length; i++) {
+        html += '<div class="col-md-' + col_width + '"><h2>Table ' + (i + 1) + '</h2><ul>';
+        for (var j=0; j<game_state.seating[i][1].length; j++) {
+            html += '<li><strong>Seat ' + (j + 1) + ':</strong> ';
+            if (game_state.seating[i][1][j]) {
+                html += game_state.seating[i][1][j];
+            }
+        }
+        html += '</ul></div>';
+    }
+    document.getElementById("seating-chart").innerHTML = html;
+};
 
 function update_players_entered_labels() {
     var html = '';
@@ -169,7 +219,7 @@ function update_players_entered_labels() {
     document.getElementById("player-list").innerHTML = html;
     document.getElementById("player-count-label").innerHTML = game_state.players.length;
     if (game_state.players.length > 1) {
-        document.getElementById("start-game-btn").disabled = false;
+        document.getElementById("assign-seats-btn").disabled = false;
     }
 }
 
@@ -246,6 +296,7 @@ function initialise() {
         read_buy_in();
         read_starting_stack();
         read_blinds();
+        read_players_per_table();
         return;
     }
 
@@ -283,10 +334,14 @@ function restore_state(data) {
         if (game_state.running) {
             tick();
         }
+    } else if (game_state.seating) {
+        document.getElementById("setup-container").classList.add("hidden");
+        document.getElementById("seating-container").classList.remove("hidden");
     } else {
         document.getElementById("buy-in-input").value = game_state.buy_in;
         document.getElementById("starting-stack-input").value = game_state.starting_stack;
         document.getElementById("blinds-input").value = game_state.blinds;
+        document.getElementById("players-per-table-input").value = game_state.players_per_table;
     }
 }
 
