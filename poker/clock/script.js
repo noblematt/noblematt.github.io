@@ -151,6 +151,9 @@ function tick() {
         set_level_end();
         if (game_state.levels[game_state.level][1] == 'break') {
             pause();
+        } else {
+            game_state.minutes--;
+            game_state.seconds = 59;
         }
     } else {
         var time_remaining = game_state.level_end - now;
