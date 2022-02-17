@@ -21,6 +21,8 @@ const DEFAULT_BLINDS = `
 
 const SEATING_CHART_COL_WIDTHS = [12, 6, 4, 6, 4, 4];
 
+const TICK_INTERVAL = 200;
+
 const game_state = {
     "players": [],
     "players_remaining": 0,
@@ -137,27 +139,29 @@ function tick() {
     if (!game_state.running) {
         return;
     }
-    window.setTimeout(tick, 1000);
-    if (game_state.seconds) {
-        game_state.seconds--;
+    window.setTimeout(tick, TICK_INTERVAL);
+    var now = new Date().getTime();
+    if (now >= game_state.level_end) {
+        game_state.level++;
+        if (game_state.level == game_state.levels.length) {
+            game_state.level--;
+        }
+        game_state.seconds = 0;
+        game_state.minutes = game_state.levels[game_state.level][0]
+        set_level_end();
+        if (game_state.levels[game_state.level][1] == 'break') {
+            pause();
+        }
+    } else {
+        var time_remaining = game_state.level_end - now;
+        game_state.seconds = Math.floor((time_remaining / 1000) % 60);
+        game_state.minutes = Math.floor((time_remaining / 1000) / 60);
         if (game_state.seconds < 10 && !game_state.minutes) {
             if (game_state.seconds % 2) {
                 document.body.style.backgroundColor = 'red';
             } else {
                 document.body.style.backgroundColor = 'white';
             }
-        }
-    } else if (game_state.minutes) {
-            game_state.minutes--;
-            game_state.seconds = 59;
-    } else {
-        game_state.level++;
-        if (game_state.level == game_state.levels.length) {
-            game_state.level--;
-        }
-        game_state.minutes = game_state.levels[game_state.level][0]
-        if (game_state.levels[game_state.level][1] == 'break') {
-            pause();
         }
     }
     update();
@@ -175,8 +179,13 @@ function pause() {
 
 function unpause() {
     game_state.running = true;
-    window.setTimeout(tick, 1000);
+    set_level_end();
+    window.setTimeout(tick, TICK_INTERVAL);
     update();
+}
+
+function set_level_end() {
+    game_state.level_end = new Date().getTime() + 1000 * (game_state.seconds + 60 * game_state.minutes);
 }
 
 function update() {
