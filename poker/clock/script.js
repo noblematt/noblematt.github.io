@@ -1,15 +1,4 @@
 
-var lzma = new LZMA("/lib/lzma_worker.js");
-
-const PRIZE_DISTS = [
-    [1, [100]],
-    [5, [70, 30]],
-    [11, [50, 30, 20]],
-    [21, [37, 25, 15, 12, 11]],
-    [31, [35, 22, 15, 11, 9, 8]],
-    [41, [32, 18, 12.5, 10.5, 8.3, 7.3, 6.2, 5.2]]
-];
-
 const DEFAULT_BLINDS = `
 30: 5 / 5; 5 / 10; 10: break;
 20: 10 / 15; 10 / 20; 15 / 25; 10: break;
@@ -22,12 +11,6 @@ const DEFAULT_BLINDS = `
 const SEATING_CHART_COL_WIDTHS = [12, 6, 4, 6, 4, 4];
 
 const TICK_INTERVAL = 200;
-
-const game_state = {
-    "players": [],
-    "players_remaining": 0,
-    "n_buy_ins": 0
-}
 
 function read_buy_in() {
     game_state.buy_in = document.getElementById("buy-in-input").value;
@@ -263,24 +246,7 @@ function update_prize_pool_label() {
 }
 
 function update_prizes_label() {
-    var prize_pool = game_state.prize_pool;
-    var n_players = game_state.players.length;
-    var dist;
-    for (var i in PRIZE_DISTS) {
-        if (PRIZE_DISTS[i][0] <= n_players) {
-            dist = PRIZE_DISTS[i][1]
-        }
-    }
-    var pool_remaining = prize_pool;
-    var prizes = [];
-    for (var i = dist.length - 1; i>=0; i--) {
-        var value = Math.round(dist[i] * prize_pool / 100);
-        if (i == 0) {
-            value = pool_remaining;
-        }
-        prizes.unshift(value);
-        pool_remaining -= value;
-    }
+    var prizes = calculate_prizes();
     var label = '';
     for (var i=0; i<prizes.length; i++) {
         var prize = prizes[i];
@@ -290,14 +256,6 @@ function update_prizes_label() {
         label += "£" + prize;
     }
     document.getElementById("prizes-label").innerHTML = label;
-}
-
-function pad(n, length=2) {
-    n = n.toString();
-    while (n.length < length) {
-        n = '0' + n;
-    }
-    return n;
 }
 
 function initialise() {
