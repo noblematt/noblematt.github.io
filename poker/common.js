@@ -12,11 +12,27 @@ const PRIZE_DISTS = [
 
 const game_state = {
     "players": [],
+    "results": [],
     "players_remaining": 0,
     "n_buy_ins": 0
 }
 
-const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+function update_url() {
+    lzma.compress(JSON.stringify(game_state), 1, function(compressed, error) {
+        if (error) {
+            alert("Failed to compress data: "+error);
+            return;
+        }
+
+        var reader = new FileReader();
+        reader.onload = function(){
+            var encoded_data = reader.result.substr(reader.result.indexOf(",")+1);
+            var url = '#' + encoded_data;
+            window.location.replace(url);
+        };
+        reader.readAsDataURL(new Blob([new Uint8Array(compressed)]));
+    });
+}
 
 function calculate_prizes() {
     var prize_pool = game_state.prize_pool;

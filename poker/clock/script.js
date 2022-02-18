@@ -294,6 +294,10 @@ function initialise() {
     });
 }
 
+function open_document() {
+    window.open(window.location.toString().replace('clock', 'document'), '_blank');
+}
+
 function restore_state(data) {
     for (var key in data) {
         game_state[key] = data[key];
@@ -314,23 +318,6 @@ function restore_state(data) {
         document.getElementById("blinds-input").value = game_state.blinds;
         document.getElementById("players-per-table-input").value = game_state.players_per_table;
     }
-}
-
-function update_url() {
-    lzma.compress(JSON.stringify(game_state), 1, function(compressed, error) {
-        if (error) {
-            alert("Failed to compress data: "+error);
-            return;
-        }
-
-        var reader = new FileReader();
-        reader.onload = function(){
-            var encoded_data = reader.result.substr(reader.result.indexOf(",")+1);
-            var url = '#' + encoded_data;
-            window.location.replace(url);
-        };
-        reader.readAsDataURL(new Blob([new Uint8Array(compressed)]));
-    });
 }
 
 document.addEventListener('DOMContentLoaded', initialise);
