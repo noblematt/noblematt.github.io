@@ -111,6 +111,7 @@ function start_game() {
     game_state.level = -1;
     game_state.minutes = 0;
     game_state.seconds = 0;
+    set_level_end();
     game_state.started = true;
     game_state.running = true;
 
