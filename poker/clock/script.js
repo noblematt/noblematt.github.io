@@ -294,8 +294,8 @@ function initialise() {
     });
 }
 
-function open_document() {
-    window.open(window.location.toString().replace('clock', 'document'), '_blank');
+function open_related(name) {
+    window.open(window.location.toString().replace('clock', name), '_blank');
 }
 
 function restore_state(data) {

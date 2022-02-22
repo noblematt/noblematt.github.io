@@ -1,6 +1,6 @@
 body { padding: 50px; }
 
-.btn { margin-bottom: 10px; }
+form { margin-bottom: 10px; }
 .btn-block { margin-top: 20px; }
 
 .clock {
@@ -40,3 +40,5 @@ body { padding: 50px; }
 #seating-chart {
     font-size: 1.5em;
 }
+
+.seating-chart-table tbody tr td { vertical-align: middle; }
