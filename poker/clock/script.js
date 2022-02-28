@@ -1,11 +1,11 @@
 
 const DEFAULT_BLINDS = `
 30: 5 / 5; 5 / 10; 10: break;
-20: 10 / 15; 10 / 20; 15 / 25; 10: break;
-15: 15 / 30; 20 / 40; 25 / 50; 30 / 60; 10: break;
-10: 40 / 80; 50 / 100; 60 / 120; 80 / 160; 100 / 200; 125 / 250; 10: break;
-10: 150 / 300; 200 / 400; 250 / 500; 300 / 600; 400 / 800; 500 / 1000; 10: break;
-10: 600 / 1200; 800 / 1600; 1000 / 2000; 1200 / 2400; 1500 / 3000; 2000 / 4000;
+15: 10 / 15; 10 / 20; 15 / 25; 15 / 30; 10: break;
+10: 20 / 40; 25 / 50; 30 / 60; 40 / 80; 50 / 100; 60 / 120; 10: break;
+10: 80 / 160; 100 / 200; 125 / 250; 150 / 300; 200 / 400; 250 / 500; 10: break;
+10: 300 / 600; 400 / 800; 500 / 1000; 600 / 1200; 800 / 1600; 1000 / 2000; 10: break;
+10: 1200 / 2400; 1500 / 3000; 2000 / 4000; 2500 / 5000; 3000 / 6000; 4000 / 8000;
 `.trim()
 
 const SEATING_CHART_COL_WIDTHS = [12, 6, 4, 6, 4, 4];
@@ -108,7 +108,10 @@ function build_blinds(blinds_definition) {
     var level_time = 0;
     levels = [];
     for (var i in level_definitions) {
-        var definition = level_definitions[i];
+        var definition = level_definitions[i].trim();
+        if (definition.length == 0) {
+            continue;
+        }
         var parts = definition.split(':');
         if (parts.length > 1) {
             level_time = parseInt(parts[0]);
