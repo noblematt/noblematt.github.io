@@ -178,6 +178,10 @@ function set_level_end() {
     game_state.level_end = new Date().getTime() + 1000 * (game_state.seconds + 60 * game_state.minutes);
 }
 
+function end_level() {
+    game_state.level_end = new Date().getTime();
+}
+
 function update() {
     if (game_state.started) {
         update_players_remaining_label();
