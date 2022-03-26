@@ -3487,15 +3487,90 @@
             16500
         );
 
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ru", "fill:#000000");},
+            17000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".vu", "fill:#000000");},
+            17500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".nc", "fill:#FFCC00");},
+            18000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ck", "fill:#000000");},
+            18500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".jp", "fill:#0000FF");},
+            19000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".sa", "fill:#0000FF");},
+            19000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".fj", "fill:#FFCC00");},
+            19500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".at", "fill:#FFCC00");},
+            20000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".it", "fill:#FFCC00");},
+            20000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".tr", "fill:#FFCC00");},
+            20000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".cz", "fill:#FFCC00");},
+            20500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".sv", "fill:#FFCC00");},
+            21000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".bo", "fill:#FFCC00");},
+            21500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ec", "fill:#0000FF");},
+            21500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".uy", "fill:#0000FF");},
+            21500
+        );
+
 
         window.setTimeout(
             function() {
-                for(var i=0; i<60; i++) {
+                for(var i=0; i<75; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            19000
+            24000
         );
 
     }
