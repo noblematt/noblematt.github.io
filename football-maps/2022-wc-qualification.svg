@@ -3562,15 +3562,35 @@
             21500
         );
 
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".pg", "fill:#FFCC00");},
+            22000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".pf", "fill:#FFCC00");},
+            22500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ca", "fill:#0000FF");},
+            23000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".pa", "fill:#FFCC00");},
+            23500
+        );
+
 
         window.setTimeout(
             function() {
-                for(var i=0; i<75; i++) {
+                for(var i=0; i<79; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            24000
+            26000
         );
 
     }
