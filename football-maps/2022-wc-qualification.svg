@@ -3582,15 +3582,95 @@
             23500
         );
 
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".lb", "fill:#FFCC00");},
+            24000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".iq", "fill:#FFCC00");},
+            24500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ng", "fill:#FFCC00");},
+            25000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".gh", "fill:#0000FF");},
+            25000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".eg", "fill:#FFCC00");},
+            25500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".sn", "fill:#0000FF");},
+            25500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".mk", "fill:#FFCC00");},
+            26000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".se", "fill:#FFCC00");},
+            26000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".pl", "fill:#0000FF");},
+            26000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".pt", "fill:#0000FF");},
+            26000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".cd", "fill:#FFCC00");},
+            26500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ml", "fill:#FFCC00");},
+            26500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".ma", "fill:#0000FF");},
+            26500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".tn", "fill:#0000FF");},
+            26500
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".dz", "fill:#FFCC00");},
+            27000
+        );
+
+        window.setTimeout(
+            function() {document.styleSheets[0].addRule(".cm", "fill:#0000FF");},
+            27000
+        );
+
 
         window.setTimeout(
             function() {
-                for(var i=0; i<79; i++) {
+                for(var i=0; i<95; i++) {
                     document.styleSheets[0].removeRule(document.styleSheets[0].rules.length - 1);
                 }
                 start_animation();
             },
-            26000
+            29500
         );
 
     }
