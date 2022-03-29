@@ -35,10 +35,10 @@ XLINK_XMLNS = 'xmlns:xlink="http://www.w3.org/1999/xlink"'
 SCRIPT_HEADER = '''
 <style>text {font-size:25px}</style>
 <a xlink:href="./animate_world_cup_qualification_map.py" target="_blank">
-    <text x="10" y="1000">Generated using python script</text>
+    <text x="5" y="1230">Generated using python script</text>
 </a>
 <a xlink:href="https://commons.wikimedia.org/wiki/File:2022_world_cup_qualification.svg" target="_blank">
-    <text x="10" y="1030">Based on image by 4hrue2kd83f, CC0, via Wikimedia Commons</text>
+    <text x="5" y="1260">Based on image by 4hrue2kd83f, CC0, via Wikimedia Commons</text>
 </a>
 
 <script>
@@ -154,7 +154,7 @@ def build_animated_svg(url, states, headers):
 
     return (
         document +
-        SCRIPT_FOOTER.replace('TIMEOUT', str((i + 5) * 500)).replace('N_RULES', str(n_rules))
+        SCRIPT_FOOTER.replace('TIMEOUT', str((i + 10) * 500)).replace('N_RULES', str(n_rules))
     )
 
 def amend_root_tag(document):
