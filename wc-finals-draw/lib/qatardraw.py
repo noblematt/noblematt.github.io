@@ -29,7 +29,7 @@ def main():
     # different set of events
     monte_carlo(extract_pot_confederations)
 
-def monte_carlo(extract, display_interval=1000):
+def monte_carlo(extract, display_interval=1000, already_drawn=''):
     '''
     Run a Monte Carlo simulation
     Uses the given `extract` function to extract events from each iteration
@@ -46,6 +46,7 @@ def monte_carlo(extract, display_interval=1000):
             random.choice(perm)
             for perm in pot_perms
         )
+        draw_order = already_drawn + draw_order[len(already_drawn):]
         groups = ''.join(draw_pot(draw_order))
         for key in extract(groups):
             counts[key] += 1
@@ -134,6 +135,20 @@ def extract_first_three_confederations(groups):
         if groups[i] == 'E'
     )
     yield groups[pot4_uefa_index-3:pot4_uefa_index]
+
+def extract_group(groups):
+    pot4_uefa_index = next(
+        i for i in range(3, len(groups), 4)
+        if groups[i] == 'E'
+    )
+    yield 'ABCDEFGH'[pot4_uefa_index // 4]
+
+def extract_group_and_third_pot_team(groups):
+    pot4_uefa_index = next(
+        i for i in range(3, len(groups), 4)
+        if groups[i] == 'E'
+    )
+    yield 'ABCDEFGH'[pot4_uefa_index // 4] + groups[pot4_uefa_index - 1]
 
 if __name__ == '__main__':
     main()
