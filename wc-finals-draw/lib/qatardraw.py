@@ -36,15 +36,10 @@ def monte_carlo(extract, display_interval=1000, already_drawn=''):
     Prints the number of iterations, and the probability of each event, after
     every n iterations, where n is the value of `display_interval`
     '''
-    pot_perms = tuple(
-        pot_permutations(*pot_definition)
-        for pot_definition in POT_DEFINITIONS
-    )
     counts = defaultdict(int)
     for i in count(1):
         draw_order = ''.join(
-            random.choice(perm)
-            for perm in pot_perms
+            ''.join(random_draw(*pot)) for pot in POT_DEFINITIONS
         )
         draw_order = already_drawn + draw_order[len(already_drawn):]
         groups = ''.join(draw_pot(draw_order))
@@ -56,6 +51,13 @@ def monte_carlo(extract, display_interval=1000, already_drawn=''):
                 '%s:%f' % (key, n / i)
                 for key, n in counts.items()
             ))
+
+def random_draw(pot, prefix=''):
+    for c in prefix:
+        yield c
+    pot = list(pot)
+    while pot:
+        yield pot.pop(random.randint(0, len(pot) - 1))
 
 def pot_permutations(pot, prefix=''):
     '''
