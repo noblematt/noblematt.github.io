@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:title" content="World Cup Draw Probability Analysis">
+        <meta property="og:url" content="https://noblematt.github.io/wc-2026-draw/" />
+        <meta property="og:description" content="Investigation of probability of Scotland drawing various teams in World Cup draw">
+        <meta property="og:image" content="/wc-2026-draw/pot4-pie.png">
+        <meta property="og:type" content="article" />
+        <title>World Cup Draw Probability Analysis</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    </head>
+    <body class="container" style="padding:50px;">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+                <h1>World Cup Draw Probability Analysis</h1>
+
+                <p>
+                    Scotland have qualified for the FIFA Men's World Cup for the first time since
+                    1998. On Friday the 5th of December, it will finally become real as we discover
+                    which three countries we will face in the group stage, and which North American
+                    cities we might play these matches in (pending confirmation of venues the
+                    following day).
+                </p>
+
+                <p>
+                    In theory, we should have an equal chance of being drawn into each of the 12
+                    groups, and an equal chance of facing each country in pots 1, 2 and 4. In
+                    reality though, it's a lot more complicated than that.
+                </p>
+
+                <p>
+                    Firstly, we generally have a lower probability of drawing European teams, as
+                    there is a general principle that teams from the same confederation are not
+                    meant to face each other in the group stage. UEFA is the only confederation with
+                    more slots in the World Cup than there are groups, so there will be exactly four
+                    groups which contain two UEFA teams, with the other eight groups containing only
+                    one.
+                </p>
+
+                <p>
+                    It gets even more complicated when you look at the draw procedure. In order to
+                    ensure all the constraints are satisfied and teams from the same confederation
+                    are kept apart, teams will often "skip" groups as they are drawn out of their
+                    pot. This process means that we are far more likely to be drawn into some groups
+                    than others, and more likely to face certain teams than others.
+                </p>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Pot 1</th>
+                            <th>Pot 2</th>
+                            <th>Pot 3</th>
+                            <th>Pot 4</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>USA <em>(N)</em></td>
+                            <td>Croatia <em>(E)</em></td>
+                            <td>Norway <em>(E)</em></td>
+                            <td>Jordan <em>(A)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Mexico <em>(N)</em></td>
+                            <td>Morocco <em>(F)</em></td>
+                            <td>Panama <em>(N)</em></td>
+                            <td>Cape Verde <em>(F)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Canada <em>(N)</em></td>
+                            <td>Colombia <em>(S)</em></td>
+                            <td>Egypt <em>(F)</em></td>
+                            <td>Ghana <em>(F)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Spain <em>(E)</em></td>
+                            <td>Uruguay <em>(S)</em></td>
+                            <td>Algeria <em>(F)</em></td>
+                            <td>Cura&ccedil;ao <em>(N)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Argentina <em>(S)</em></td>
+                            <td>Switzerland <em>(E)</em></td>
+                            <td>Scotland <em>(E)</em></td>
+                            <td>Haiti <em>(N)</em></td>
+                        </tr>
+                        <tr>
+                            <td>France <em>(E)</em></td>
+                            <td>Japan <em>(A)</em></td>
+                            <td>Paraguay <em>(S)</em></td>
+                            <td>New Zealand <em>(O)</em></td>
+                        </tr>
+                        <tr>
+                            <td>England <em>(E)</em></td>
+                            <td>Senegal <em>(F)</em></td>
+                            <td>Tunisia <em>(F)</em></td>
+                            <td>UEFA Playoff A <em>(E)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Brazil <em>(S)</em></td>
+                            <td>Iran <em>(A)</em></td>
+                            <td>Ivory Coast <em>(F)</em></td>
+                            <td>UEFA Playoff B <em>(E)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Portugal <em>(E)</em></td>
+                            <td>South Korea <em>(A)</em></td>
+                            <td>Uzbekistan <em>(A)</em></td>
+                            <td>UEFA Playoff C <em>(E)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Netherlands <em>(E)</em></td>
+                            <td>Ecuador <em>(S)</em></td>
+                            <td>Qatar <em>(A)</em></td>
+                            <td>UEFA Playoff D <em>(E)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Belgium <em>(E)</em></td>
+                            <td>Austria <em>(E)</em></td>
+                            <td>Saudi Arabia <em>(A)</em></td>
+                            <td>Intercontinental Playoff 1 <em>(F/O/N)</em></td>
+                        </tr>
+                        <tr>
+                            <td>Germany <em>(E)</em></td>
+                            <td>Australia <em>(A)</em></td>
+                            <td>South Africa <em>(F)</em></td>
+                            <td>Intercontinental Playoff 2 <em>(A/S/N)</em></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>The letters in brackets after each team indicate the continent to which they
+                belong, as follows:</p>
+
+                <ul>
+                    <li><em>A</em>: Asia</li>
+                    <li><em>E</em>: Europe</li>
+                    <li><em>F</em>: Africa</li>
+                    <li><em>N</em>: North America</li>
+                    <li><em>O</em>: Oceania</li>
+                    <li><em>S</em>: South America</li>
+                </ul>
+
+                <p>
+                    In the case of the intercontinental playoff placeholders, these cannot be placed
+                    in the same group as a team from any of the confederations involved in the
+                    playoff. This creates some very tight constraints. The "Intercontinental Playoff
+                    2" placeholder can only be placed with African, European, and Oceanian teams. As
+                    there are no Oceanian teams in pots 1-3, this means they <strong>must</strong>
+                    be placed into a group with two European teams and an African team.
+                </p>
+
+                <p>
+                    That constraint leads to a surprising edge case where an illegal configuration
+                    could be drawn after just 2 pots! This could happen if every European pot 1 team
+                    (7 of these) were to be drawn against an Asian or South American team from pot 2
+                    (4 and 3 of these, respectively). It's unlikely this could happen, but hopefully
+                    FIFA have programmed their computer well enough to catch it, just in case!
+                </p>
+
+                <p>
+                    It also means that after the first 2 pots have been drawn, there might be a
+                    situation where we would know that one of the two UEFA teams in pot 3 will
+                    definitely be drawn into a certain group, if there is only one group remaining
+                    which can possibly satisfy the "two UEFA teams and an African team" requirement.
+                    If, after pot 2 has been drawn, there are no groups with two UEFA teams, and
+                    just one group with one UEFA and one African team, we will know for a certainty
+                    that either Scotland or Norway will be drawn into that group.
+                </p>
+
+                <p>
+                    There are many other interesting quirks of the draw, and the various constraints
+                    that need to be satisfied. Collectively, they lead to some very asymmetrical
+                    probabilities, when it comes to the groups Scotland could be drawn into, and the
+                    opposition we could face.
+                </p>
+
+                <h2>Group Assignment</h2>
+
+                <p>
+                    Due to the geographic constraints, coupled with the pre-defined assignment of
+                    the hosts into groups A, B and D, there are some groups we are more likely to be
+                    drawn into than others. Fans who plan to travel and follow the team in the group
+                    stage will be very interested to know which group we are most likely to find
+                    ourselves in.
+                </p>
+
+                <p>
+                    Groups A, B and D are the most likely outcomes, due to the guarantee that there
+                    will not be a pot 1 UEFA team in these groups. Also though, there are some
+                    differences between these, and between the rest of the groups. There are many
+                    cases where other teams in our pot would not be allowed to be drawn in certain
+                    groups, meaning they would skip over groups A, B and D. This means we might get
+                    more than one chance to be drawn into these groups, and also makes it far more
+                    likely that another team gets drawn into group C before we get a chance. This is
+                    why group C is the least likely outcome for us.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6"><svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)">
+                        <path d="M 1.0 0.0 A 1 1 0 0 1 0.7417417727387393 0.6706855765367199 L 0 0" fill="purple" />
+                        <path d="M 0.7417417727387393 0.6706855765367199 A 1 1 0 0 1 0.22427076094938136 0.9745268727865771 L 0 0" fill="limegreen" />
+                        <path d="M 0.22427076094938136 0.9745268727865771 A 1 1 0 0 1 -0.1564344650402306 0.9876883405951378 L 0 0" fill="lightblue" />
+                        <path d="M -0.1564344650402306 0.9876883405951378 A 1 1 0 0 1 -0.6799533787224189 0.7332553462225603 L 0 0" fill="orange" />
+                        <path d="M -0.6799533787224189 0.7332553462225603 A 1 1 0 0 1 -0.9202318473658702 0.3913736668372028 L 0 0" fill="black" />
+                        <path d="M -0.9202318473658702 0.3913736668372028 A 1 1 0 0 1 -0.99556196460308 -0.0941083133185141 L 0 0" fill="tomato" />
+                        <path d="M -0.99556196460308 -0.0941083133185141 A 1 1 0 0 1 -0.8270805742745618 -0.5620833778521306 L 0 0" fill="blue" />
+                        <path d="M -0.8270805742745618 -0.5620833778521306 A 1 1 0 0 1 -0.4651510780774586 -0.8852313113324551 L 0 0" fill="red" />
+                        <path d="M -0.4651510780774586 -0.8852313113324551 A 1 1 0 0 1 0.018848439715407707 -0.999822352380809 L 0 0" fill="aqua" />
+                        <path d="M 0.018848439715407707 -0.999822352380809 A 1 1 0 0 1 0.4981851053394903 -0.8670707011644904 L 0 0" fill="yellow" />
+                        <path d="M 0.4981851053394903 -0.8670707011644904 A 1 1 0 0 1 0.8607420270039432 -0.509041415750372 L 0 0" fill="brown" />
+                        <path d="M 0.8607420270039432 -0.509041415750372 A 1 1 0 0 1 1 0 L 0 0" fill="gray" />
+                    </svg></div>
+                    <div class="col-md-6"><svg width="300" height="370">
+                        <style>text {font-size:25px}</style>
+                        <rect x="0" y="15" width="30" height="25" fill="purple"></rect><text x="35" y="37">A (11.7%)</text>
+                        <rect x="0" y="45" width="30" height="25" fill="limegreen"></rect><text x="35" y="67">B (9.7%)</text>
+                        <rect x="0" y="75" width="30" height="25" fill="lightblue"></rect><text x="35" y="97">C (6.1%)</text>
+                        <rect x="0" y="105" width="30" height="25" fill="orange"></rect><text x="35" y="127">D (9.4%)</text>
+                        <rect x="0" y="135" width="30" height="25" fill="black"></rect><text x="35" y="157">E (6.7%)</text>
+                        <rect x="0" y="165" width="30" height="25" fill="tomato"></rect><text x="35" y="187">F (7.9%)</text>
+                        <rect x="0" y="195" width="30" height="25" fill="blue"></rect><text x="35" y="217">G (8.0%)</text>
+                        <rect x="0" y="225" width="30" height="25" fill="red"></rect><text x="35" y="247">H (7.8%)</text>
+                        <rect x="0" y="255" width="30" height="25" fill="aqua"></rect><text x="35" y="277">I (8.0%)</text>
+                        <rect x="0" y="285" width="30" height="25" fill="yellow"></rect><text x="35" y="307">J (8.0%)</text>
+                        <rect x="0" y="315" width="30" height="25" fill="brown"></rect><text x="35" y="337">K (8.2%)</text>
+                        <rect x="0" y="345" width="30" height="25" fill="gray"></rect><text x="35" y="367">L (8.4%)</text>
+                    </svg></div>
+                </div>
+
+                <h2>Pot 4</h2>
+
+                <p>
+                    The largest variance in probability comes in pot 4. This is because, by the time
+                    we reach this pot, there will be many constraints on where certain teams can go,
+                    especially the playoff placeholders. The UEFA playoff placeholders will have to
+                    fill in any groups which do not yet have any UEFA teams, and will be unable to
+                    join any groups which already have two. The intercontinental playoff
+                    placeholders will be very restricted as they each have three confederations to
+                    avoid.
+                </p>
+
+                <p>
+                    Ideally we really want to avoid getting one of the UEFA playoff placeholders, as
+                    realistically these teams should not be in pot 4. We really really want to avoid
+                    Italy's path, as Italy have an extremely high FIFA ranking and are actually very
+                    close to being a pot 1 team, if their seeding was to be based on their own
+                    ranking. Fortunately these are the least likely possibilities, but that doesn't
+                    mean they won't happen.
+                </p>
+
+                <p>
+                    As mentioned above, the intercontinental playoff placeholder for Iraq, Bolivia
+                    and Suriname has to be placed in a group with two UEFA teams and an African
+                    team. We could find ourselves in the position where we are in the only such
+                    group, meaning we will know we are going to be drawn against that placeholder
+                    before the pot even begins to be drawn!
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6"><svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)">
+                        <path d="M 1.0 0.0 A 1 1 0 0 1 0.5877852522924732 0.8090169943749473 L 0 0" fill="purple" />
+                        <path d="M 0.5877852522924732 0.8090169943749473 A 1 1 0 0 1 -0.3090169943749471 0.9510565162951536 L 0 0" fill="limegreen" />
+                        <path d="M -0.3090169943749471 0.9510565162951536 A 1 1 0 0 1 -0.9408807689542253 0.33873792024529176 L 0 0" fill="lightblue" />
+                        <path d="M -0.9408807689542253 0.33873792024529176 A 1 1 0 0 1 -0.8443279255020152 -0.5358267949789964 L 0 0" fill="orange" />
+                        <path d="M -0.8443279255020152 -0.5358267949789964 A 1 1 0 0 1 -0.32688802965494324 -0.9450630751798046 L 0 0" fill="black" />
+                        <path d="M -0.32688802965494324 -0.9450630751798046 A 1 1 0 0 1 0.19970998051440675 -0.979855052384247 L 0 0" fill="tomato" />
+                        <path d="M 0.19970998051440675 -0.979855052384247 A 1 1 0 0 1 0.5251746299612957 -0.8509944817946918 L 0 0" fill="blue" />
+                        <path d="M 0.5251746299612957 -0.8509944817946918 A 1 1 0 0 1 0.7862884321366191 -0.6178596130903341 L 0 0" fill="red" />
+                        <path d="M 0.7862884321366191 -0.6178596130903341 A 1 1 0 0 1 0.8763066800438636 -0.4817536741017153 L 0 0" fill="aqua" />
+                        <path d="M 0.8763066800438636 -0.4817536741017153 A 1 1 0 0 1 0.9429905358928643 -0.33281954452298707 L 0 0" fill="yellow" />
+                        <path d="M 0.9429905358928643 -0.33281954452298707 A 1 1 0 0 1 0.9845643345292052 -0.17502305897527687 L 0 0" fill="brown" />
+                        <path d="M 0.9845643345292052 -0.17502305897527687 A 1 1 0 0 1 1 0 L 0 0" fill="gray" />
+                    </svg></div>
+                    <div class="col-md-6"><svg width="550" height="370">
+                        <style>text {font-size:25px}</style>
+                        <rect x="0" y="15" width="30" height="25" fill="purple"></rect><text x="35" y="37">Cape Verde (15.0%)</text>
+                        <rect x="0" y="45" width="30" height="25" fill="limegreen"></rect><text x="35" y="67">Ghana (15.0%)</text>
+                        <rect x="0" y="75" width="30" height="25" fill="lightblue"></rect><text x="35" y="97">Congo/Jamaica/New Caledonia (14.5%)</text>
+                        <rect x="0" y="105" width="30" height="25" fill="orange"></rect><text x="35" y="127">Iraq/Bolivia/Suriname (14.5%)</text>
+                        <rect x="0" y="135" width="30" height="25" fill="black"></rect><text x="35" y="157">Jordan (10.7%)</text>
+                        <rect x="0" y="165" width="30" height="25" fill="tomato"></rect><text x="35" y="187">New Zealand (8.5%)</text>
+                        <rect x="0" y="195" width="30" height="25" fill="blue"></rect><text x="35" y="217">Cura&ccedil;ao (5.6%)</text>
+                        <rect x="0" y="225" width="30" height="25" fill="red"></rect><text x="35" y="247">Haiti (5.6%)</text>
+                        <rect x="0" y="255" width="30" height="25" fill="aqua"></rect><text x="35" y="277">Italy/Wales/Bosnia/NI (2.6%)</text>
+                        <rect x="0" y="285" width="30" height="25" fill="yellow"></rect><text x="35" y="307">Denmark/Czechia/Ireland/Macedonia (2.6%)</text>
+                        <rect x="0" y="315" width="30" height="25" fill="brown"></rect><text x="35" y="337">Ukraine/Poland/Albania/Sweden (2.6%)</text>
+                        <rect x="0" y="345" width="30" height="25" fill="gray"></rect><text x="35" y="367">Turkey/Slovakia/Kosovo/Romania (2.6%)</text>
+                    </svg></div>
+                </div>
+
+                <h2>Pot 2</h2>
+
+                <p>
+                    In pot 2, we are again highly unlikely to be drawn against the European teams.
+                    There is a very high chance of drawing an African team - due in part to the
+                    requirement for there to be a group with two UEFA teams and an African team.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6"><svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)">
+                        <path d="M 1.0 0.0 A 1 1 0 0 1 0.5672689491267564 0.8235325976284275 L 0 0" fill="purple" />
+                        <path d="M 0.5672689491267564 0.8235325976284275 A 1 1 0 0 1 -0.3564118787132508 0.934328942456612 L 0 0" fill="limegreen" />
+                        <path d="M -0.3564118787132508 0.934328942456612 A 1 1 0 0 1 -0.8340784336131714 0.55164587062843 L 0 0" fill="lightblue" />
+                        <path d="M -0.8340784336131714 0.55164587062843 A 1 1 0 0 1 -0.9992894726405892 -0.037690182669934735 L 0 0" fill="orange" />
+                        <path d="M -0.9992894726405892 -0.037690182669934735 A 1 1 0 0 1 -0.7901550123756903 -0.6129070536529766 L 0 0" fill="black" />
+                        <path d="M -0.7901550123756903 -0.6129070536529766 A 1 1 0 0 1 -0.2850192624699761 -0.958521789017376 L 0 0" fill="tomato" />
+                        <path d="M -0.2850192624699761 -0.958521789017376 A 1 1 0 0 1 0.13156435909228298 -0.9913076310695065 L 0 0" fill="blue" />
+                        <path d="M 0.13156435909228298 -0.9913076310695065 A 1 1 0 0 1 0.5251746299612965 -0.8509944817946914 L 0 0" fill="red" />
+                        <path d="M 0.5251746299612965 -0.8509944817946914 A 1 1 0 0 1 0.8270805742745626 -0.5620833778521295 L 0 0" fill="aqua" />
+                        <path d="M 0.8270805742745626 -0.5620833778521295 A 1 1 0 0 1 0.9226727398701153 -0.38558399227739537 L 0 0" fill="yellow" />
+                        <path d="M 0.9226727398701153 -0.38558399227739537 A 1 1 0 0 1 0.9810905174433343 -0.19354946805085907 L 0 0" fill="brown" />
+                        <path d="M 0.9810905174433343 -0.19354946805085907 A 1 1 0 0 1 1 0 L 0 0" fill="gray" />
+                    </svg></div>
+                    <div class="col-md-6"><svg width="300" height="370">
+                        <style>text {font-size:25px}</style>
+                        <rect x="0" y="15" width="30" height="25" fill="purple"></rect><text x="35" y="37">Morocco (15.4%)</text>
+                        <rect x="0" y="45" width="30" height="25" fill="limegreen"></rect><text x="35" y="67">Senegal (15.4%)</text>
+                        <rect x="0" y="75" width="30" height="25" fill="lightblue"></rect><text x="35" y="97">Japan (9.9%)</text>
+                        <rect x="0" y="105" width="30" height="25" fill="orange"></rect><text x="35" y="127">Iran (9.9%)</text>
+                        <rect x="0" y="135" width="30" height="25" fill="black"></rect><text x="35" y="157">South Korea (9.9%)</text>
+                        <rect x="0" y="165" width="30" height="25" fill="tomato"></rect><text x="35" y="187">Australia (9.9%)</text>
+                        <rect x="0" y="195" width="30" height="25" fill="blue"></rect><text x="35" y="217">Colombia (6.7%)</text>
+                        <rect x="0" y="225" width="30" height="25" fill="red"></rect><text x="35" y="247">Uruguay (6.7%)</text>
+                        <rect x="0" y="255" width="30" height="25" fill="aqua"></rect><text x="35" y="277">Ecuador (6.7%)</text>
+                        <rect x="0" y="285" width="30" height="25" fill="yellow"></rect><text x="35" y="307">Croatia (3.2%)</text>
+                        <rect x="0" y="315" width="30" height="25" fill="brown"></rect><text x="35" y="337">Switzerland (3.2%)</text>
+                        <rect x="0" y="345" width="30" height="25" fill="gray"></rect><text x="35" y="367">Austria (3.2%)</text>
+                    </svg></div>
+                </div>
+
+                <h2>Pot 1</h2>
+
+                <p>
+                    Pot 1 is the most exciting of pots, with the best countries in the world in
+                    addition to the hosts.
+                </p>
+
+                <p>
+                    We could draw Argentina, against whom we have never played a competitive match
+                    in men's football (but whom we did face in our only Women's World Cup to date,
+                    with a heartbreaking result).
+                </p>
+
+                <p>
+                    Or we could draw Brazil <strong>again</strong> - having already faced them in
+                    four of the eight Men's World Cups we have ever qualified for.
+                </p>
+
+                <p>
+                    Alternatively we could be drawn into the opening match of the tournament
+                    <strong>again</strong> - having played in the opening match of the last two
+                    men's tournaments we have contested on foreign soil.
+                </p>
+
+                <p>
+                    In spite of all the interesting possibilities in this pot, it's the least
+                    interesting one in this analysis. There is little deviation from the 8.3% chance
+                    you would get with an even distribution of probabilities across all teams.
+                </p>
+                
+                <p>
+                    That "opening match of the tournament" scenario against Mexico is the most
+                    likely - as explained above, group A is our most likely group assignment. The
+                    UEFA teams, while less likely than the North and South American teams, are still
+                    only 1.3% less likely than that 8.3% even distribution - again, this is likely
+                    due to the requirement for there to be a group containing two UEFA teams and an
+                    African team.
+                </p>
+
+                <div class="row">
+                    <div class="col-md-6"><svg viewBox="-1 -1 2 2" style="transform: rotate(-90deg)">
+                        <path d="M 1.0 0.0 A 1 1 0 0 1 0.7332553462225601 0.6799533787224192 L 0 0" fill="purple" />
+                        <path d="M 0.7332553462225601 0.6799533787224192 A 1 1 0 0 1 0.19354946805086018 0.9810905174433341 L 0 0" fill="limegreen" />
+                        <path d="M 0.19354946805086018 0.9810905174433341 A 1 1 0 0 1 -0.4200857284118063 0.9074844245411169 L 0 0" fill="lightblue" />
+                        <path d="M -0.4200857284118063 0.9074844245411169 A 1 1 0 0 1 -0.8639234171928353 0.5036232016357609 L 0 0" fill="orange" />
+                        <path d="M -0.8639234171928353 0.5036232016357609 A 1 1 0 0 1 -0.9980267284282716 -0.06279051952931335 L 0 0" fill="black" />
+                        <path d="M -0.9980267284282716 -0.06279051952931335 A 1 1 0 0 1 -0.8763066800438635 -0.4817536741017154 L 0 0" fill="tomato" />
+                        <path d="M -0.8763066800438635 -0.4817536741017154 A 1 1 0 0 1 -0.5877852522924732 -0.8090169943749473 L 0 0" fill="blue" />
+                        <path d="M -0.5877852522924732 -0.8090169943749473 A 1 1 0 0 1 -0.18738131458572463 -0.9822872507286887 L 0 0" fill="red" />
+                        <path d="M -0.18738131458572463 -0.9822872507286887 A 1 1 0 0 1 0.24868988716485493 -0.9685831611286311 L 0 0" fill="aqua" />
+                        <path d="M 0.24868988716485493 -0.9685831611286311 A 1 1 0 0 1 0.63742398974869 -0.770513242775789 L 0 0" fill="yellow" />
+                        <path d="M 0.63742398974869 -0.770513242775789 A 1 1 0 0 1 0.9048270524660197 -0.4257792915650722 L 0 0" fill="brown" />
+                        <path d="M 0.9048270524660197 -0.4257792915650722 A 1 1 0 0 1 1 0 L 0 0" fill="gray" />
+                    </svg></div>
+                    <div class="col-md-6"><svg width="300" height="370">
+                        <style>text {font-size:25px}</style>
+                        <rect x="0" y="15" width="30" height="25" fill="purple"></rect><text x="35" y="37">Mexico (11.7%)</text>
+                        <rect x="0" y="45" width="30" height="25" fill="limegreen"></rect><text x="35" y="67">Argentina (10.0%)</text>
+                        <rect x="0" y="75" width="30" height="25" fill="lightblue"></rect><text x="35" y="97">Brazil (10.0%)</text>
+                        <rect x="0" y="105" width="30" height="25" fill="orange"></rect><text x="35" y="127">Canada (9.7%)</text>
+                        <rect x="0" y="135" width="30" height="25" fill="black"></rect><text x="35" y="157">USA (9.4%)</text>
+                        <rect x="0" y="165" width="30" height="25" fill="tomato"></rect><text x="35" y="187">Spain (7.0%)</text>
+                        <rect x="0" y="195" width="30" height="25" fill="blue"></rect><text x="35" y="217">France (7.0%)</text>
+                        <rect x="0" y="225" width="30" height="25" fill="red"></rect><text x="35" y="247">England (7.0%)</text>
+                        <rect x="0" y="255" width="30" height="25" fill="aqua"></rect><text x="35" y="277">Portugal (7.0%)</text>
+                        <rect x="0" y="285" width="30" height="25" fill="yellow"></rect><text x="35" y="307">Netherlands (7.0%)</text>
+                        <rect x="0" y="315" width="30" height="25" fill="brown"></rect><text x="35" y="337">Belgium (7.0%)</text>
+                        <rect x="0" y="345" width="30" height="25" fill="gray"></rect><text x="35" y="367">Germany (7.0%)</text>
+                    </svg></div>
+                </div>
+
+                <h2>How were the above probabilities calculated?</h2>
+
+                <p>
+                    I calculated these probabilities by creating a tool which simulates the draw,
+                    and then running around half a million simulations using a Monte Carlo method.
+                    For more information on this, see the write-up on the similar exercise I carried
+                    out for the <a href="../wc-2022-draw/">2022 World Cup draw</a>.
+                </p>
+
+                <p>
+                    It was a much more challenging exercise for this year's draw, due to the
+                    increased number of groups leading to exponentially more permutations for each
+                    group. In 2022, the implementation was purely brute force, attempting to
+                    complete the draw in the most straightforward way possible and then backtracking
+                    if this turned out to be impossible. For 2026, this was far too inefficient and
+                    so a number of heuristics had to be used to provide early detection of
+                    constraint violations and avoid the need for backtracking later. It's definitely
+                    far from the best code I have ever written and there are still some cases where
+                    certain sequences of teams coming out of pots will lead to a simulation taking
+                    over a minute to run (!), but it gets the job done and I believe it is correct
+                    enough to provide a reasonable degree of confidence in the numbers presented
+                    here. If you're interested, you can see the code
+                    <a href="./lib/usadraw.py">here</a>.
+                </p>
+
+                <p>
+                    I hope you have enjoyed reading about these investigations and it has given some
+                    insight into the World Cup draw procedures. Of course, it is all just a bit of
+                    intellectual curiosity, and even the scenarios with the lowest probabilities
+                    could still end up happening on Friday.  We can do millions of Monte Carlo
+                    simulations, but on Friday the draw will be performed just once, and the outcome
+                    of that is the one that matters.
+                </p>
+
+            </div>
+        </div>
+    </body>
+</html>
